@@ -19,9 +19,9 @@
 </head>
 
 
+{% include("Navbar/nav.html.twig") %}
 <body>
 
-    {% include("Navbar/nav.html.twig") %}
 
 
 
@@ -42,6 +42,6 @@
     {% block body %}{% endblock %}
 
 </body>
-
+{% include ('Navbar/footer.html.twig')%}
 
 </html>
