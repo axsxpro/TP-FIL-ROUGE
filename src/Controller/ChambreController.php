@@ -15,4 +15,12 @@ class ChambreController extends AbstractController
             'controller_name' => 'ChambreController',
         ]);
     }
+    #[Route('/chambre/junior', name: 'app_chambre_junior')]
+    public function junior(): Response
+    {
+        return $this->render('chambre/chambreJunior.html.twig', [
+            'controller_name' => 'ChambreController',
+        ]);
+    }
 }
+
