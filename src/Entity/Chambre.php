@@ -58,7 +58,6 @@ class Chambre
     #[ORM\JoinColumn(nullable: false)]
     private ?Categorie $categorie = null;
 
-  
     public function __construct()
     {
         $this->reservationChambres = new ArrayCollection();
