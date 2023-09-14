@@ -1,1 +1,51 @@
-<h1>ici la navbar avec bootstrap</h1>
+<nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/"><img src="/image/VCH-removebg-preview_1.png" alt=""></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav" >
+          <li class="nav-item">
+            <a class="nav-link active" href="#">Hébergements
+              <span class="visually-hidden">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="#">Réserver</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="#">Visiter l'hôtel</a>
+          </li>
+          
+         </ul>
+   <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" href="#"><img class="bl" src="/image/Vector (2).png"alt="">Admin</a>
+          </li>
+           {% if not app.user %}
+          <li class="nav-item dropdown">
+            <a class="nav-link active " href="/login"><img class="bl" src="/image/Vector.png"alt="">Se connecter</a>
+  
+          </li>
+           {%else%}
+             <li class="nav-item dropdown">
+              
+              <a class="nav-link active dropdown-toggle" data-bs-toggle="dropdown"  role="button" aria-haspopup="true" aria-expanded="false" href="/login"><img class="bl" src="./img/Vector.png"alt="">Bonjour {{ app.user.prenom }}</a>
+              <div class="dropdown-menu">
+              <a class="  dropdown-item" href="/profile">Gérer mon profil</a>
+              <a class="  dropdown-item" href="/logout">Déconnexion</a>
+              </div>
+            </li>
+            {%endif%}
+         
+          <li class="nav-item">
+            <a class="nav-link active" href="#"><img class="bl" src="/image/Vector (1).png"
+                              alt="">Mes réservations</a>
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
