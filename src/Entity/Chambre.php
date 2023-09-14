@@ -57,6 +57,7 @@ class Chambre
     #[ORM\ManyToOne(inversedBy: 'categorie')]
     private ?Categorie $categorie = null;
 
+  
     public function __construct()
     {
         $this->reservationChambres = new ArrayCollection();
@@ -252,4 +253,6 @@ class Chambre
 
         return $this;
     }
+
+ 
 }
