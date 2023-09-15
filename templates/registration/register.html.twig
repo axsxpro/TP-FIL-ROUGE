@@ -2,7 +2,9 @@
 
 {% block title %}inscription{% endblock %}
 
+
 {% block body %}
+
 
 <style>
     .blocFormulaireInscription {
@@ -137,6 +139,8 @@
             {{form_label(registrationForm.adresse) }}
             {{form_widget(registrationForm.adresse, {'attr': {'placeholder': 'Votre contenu ici'}}) }}
             {{ form_errors(registrationForm.adresse) }}
+            <ul id="liste_adresse"></ul>
+
 
             {{form_label(registrationForm.telephone) }}
             {{form_widget(registrationForm.telephone, {'attr': {'placeholder': 'Votre contenu ici'}}) }}
@@ -162,5 +166,7 @@
     </div>
 
 </div>
+
+<script src="{{asset('assets/js/suggestionAdresse.js')}}"></script>
 
 {% endblock %}
