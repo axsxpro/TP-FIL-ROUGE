@@ -1,0 +1,36 @@
+/* CSS pour centrer le contenu */
+body {
+ 
+    flex-direction: column;
+   
+    justify-content: center;
+    height: 100vh; /* Cela garantit que le contenu est centré verticalement */
+}
+
+/* Style pour les titres */
+h1 {
+    text-align: center;
+}
+
+/* Style pour les images */
+.photo {
+    text-align: center;
+    margin: 20px; /* Espacement entre les photos */
+}
+
+/* Style pour les boutons */
+button {
+    display: block;
+    margin: 20px auto; /* Centre le bouton horizontalement */
+}
+
+/* Style pour les listes */
+ul.options {
+    list-style-type: none;
+    padding: 0;
+    text-align: center;
+}
+
+ul.options li {
+    margin: 5px 0;
+}
