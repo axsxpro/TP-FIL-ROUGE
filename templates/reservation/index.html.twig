@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ReservationController!{% endblock %}
+
+{% block body %}
+<h1>Vos Réservations</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Date de Réservation</th>
+            <th>Date d'Entrée</th>
+            <th>Date de Sortie</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for reservation in reservations %}
+        <tr>
+            <td>{{ reservation.id }}</td>
+            <td>{{ reservation.dateReservation|date('Y-m-d') }}</td>
+            <td>{{ reservation.dateEntree|date('Y-m-d') }}</td>
+            <td>{{ reservation.dateSortie|date('Y-m-d') }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

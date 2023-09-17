@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\User;
+use Symfony\Component\Mime\Message;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -12,46 +13,89 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+    
+         // Crée le formulaire
         $builder
-         ->add('Nom',TextType::class)
-            ->add('prenom',TextType::class)
-            ->add('dateDeNaissance',BirthdayType::class)
-            ->add('email',EmailType::class)
-            ->add('Adresse',TextType::class)
-            ->add('telephone',TextType::class)
-            ->add('email')
-            ->add('agreeTerms', CheckboxType::class, [
-                'mapped' => false,
+
+        ->add('nom', TextType::class, [
+            'constraints' => [
+                new Length([
+                    'min' => 3,
+                    'minMessage' => 'Le nom doit avoir au moins {{ limit }} caractères.',
+                ]),
+            ],
+        ])
+
+        ->add('prenom', TextType::class, [
+            'constraints' => [
+                new Length([
+                    'min' => 3,
+                    'minMessage' => 'Le prenom doit avoir au moins {{ limit }} caractères.',
+                ]),
+            ],
+        ])
+
+            ->add('date_de_naissance', DateType::class, [
+                'widget' => 'single_text',
+                'invalid_message' => 'Veuillez indiquer votre date de naissance',
+                
+            ])
+
+            ->add('email', TextType::class, [
                 'constraints' => [
-                    new IsTrue([
-                        'message' => 'You should agree to our terms.',
+                    new Email([
+                        'message' => 'L\'adresse e-mail n\'est pas valide', // Message d'erreur en cas d'adresse e-mail invalide
                     ]),
                 ],
             ])
-            ->add('plainPassword', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
-                'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password'],
+
+            ->add('adresse', TextType::class, [
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'Please enter a password',
+                    
+                ],
+            ])
+
+            ->add('telephone', TextType::class, [
+                'constraints' => [
+                    
+                ],
+            ])
+
+
+            ->add('Conditions', CheckboxType::class, [ // Ajoute un champ de type case à cocher nommé 'conditions '
+                'mapped' => false, // Ne mappe pas ce champ directement à une propriété de l'entité User
+                'constraints' => [ // Ajoute des contraintes de validation
+                    new IsTrue([  // Vérifie si la case à cocher est cochée
+                        'message' => 'Vous devez accepter nos conditions d\'utilisation', // Message d'erreur en cas d'échec
                     ]),
-                    new Length([
+                ],
+
+                'label' => 'En créeant un compte vous acceptez nos conditions générales de vente', // Ajoutez cette ligne pour définir un label personnalisé
+            ])
+
+            ->add('plainPassword', PasswordType::class, [ // Ajoute un champ de type mot de passe nommé 'password'
+                'mapped' => false,
+                'attr' => ['autocomplete' => 'new-password'],// Attribut HTML pour l'autocomplétion du champ de mot de passe
+                'constraints' => [
+                    new Length([  // Vérifie la longueur du mot de passe
                         'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
+                        'minMessage' => 'Votre mot de passe doit contenir au moins 6 caractères', //message erreur
                         'max' => 4096,
                     ]),
+                    new Regex([
+                        'pattern' => '/^(?=.*[A-Z])(?=.*\d)/',
+                        'message' => 'Votre mot de passe doit contenir au moins une lettre majuscule et au moins un chiffre.',
+                    ]),
                 ],
-            ])
+            ]); 
         ;
     }
 

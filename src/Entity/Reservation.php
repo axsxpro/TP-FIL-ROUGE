@@ -20,7 +20,7 @@ class Reservation
     private ?\DateTimeInterface $dateReservation = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $dateEntrée = null;
+    private ?\DateTimeInterface $dateEntree = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $dateSortie = null;
@@ -29,7 +29,6 @@ class Reservation
     private Collection $reservationChambres;
 
     #[ORM\ManyToOne(inversedBy: 'user')]
-    #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
     public function __construct()
@@ -54,14 +53,14 @@ class Reservation
         return $this;
     }
 
-    public function getDateEntrée(): ?\DateTimeInterface
+    public function getDateEntree(): ?\DateTimeInterface
     {
-        return $this->dateEntrée;
+        return $this->dateEntree;
     }
 
-    public function setDateEntrée(\DateTimeInterface $dateEntrée): static
+    public function setDateEntree(\DateTimeInterface $dateEntree): static
     {
-        $this->dateEntrée = $dateEntrée;
+        $this->dateEntree = $dateEntree;
 
         return $this;
     }

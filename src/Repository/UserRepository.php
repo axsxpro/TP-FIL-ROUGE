@@ -39,6 +39,17 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->getEntityManager()->flush();
     }
 
+    public function findReservationsByUser(User $user): array
+    {
+        return $this->createQueryBuilder('u')
+            ->select('r')
+            ->join('u.user', 'r')
+            ->where('u.id = :userId')
+            ->setParameter('userId', $user->getId())
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return User[] Returns an array of User objects
 //     */
