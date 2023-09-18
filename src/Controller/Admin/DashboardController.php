@@ -1,5 +1,7 @@
 <?php
 
+# composer require easycorp/easyadmin-bundle
+# symfony console make:admin:dashboard
 namespace App\Controller\Admin;
 use App\Entity\Chambre;
 use App\Entity\Reservation;
@@ -51,7 +53,7 @@ public function configureCrud(): Crud
             ->showEntityActionsInlined();//ca c'est pour afficher supprimer et editer dans tout les crud
     }
   
-
+#symfony console make:admin:crud de toutes les entity
 public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');

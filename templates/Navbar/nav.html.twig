@@ -52,17 +52,24 @@
           </a>
           {% endif %}
           <div class="dropdown-menu">
-            <a class="dropdown-item" href="/profile">Gérer mon profil</a>
+            <a class="dropdown-item" href="/user">Gérer mon profil</a>
             <a class="dropdown-item" href="/logout">Déconnexion</a>
           </div>
         </li>
         {% endif %}
 
+
+       {% if not is_granted('ROLE_ADMIN') %}
         <li class="nav-item">
           <a class="nav-link active" href="/user/reservations"><img class="bl" src="/img/Vector (1).png" alt="">Mes
             réservations</a>
         </li>
-
+           {# {% else %}
+           <li class="nav-item">
+          <a class="nav-link active" href="/user/reservations"><img class="bl" src="/img/Vector (1).png" alt="">Mes
+            réservations</a>
+        </li> #}
+         {% endif %}
       </ul>
     </div>
   </div>

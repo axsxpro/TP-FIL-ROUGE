@@ -17,14 +17,22 @@ class AppFixtures extends Fixture
     {
         $faker = Factory::create();
 
+$libelle = [
+
+    "Chambre double superieure",
+    "Chambre double deluxe",
+    "Suite Junior",
+    
+];
+
+
+        
         $categories = [];
 
-        for ($i = 0; $i < 3; $i++) {
+        for ($i = 0; $i < count($libelle); $i++) {
             $categorie = new Categorie();
-            $categorie->setChambreDoubleSuperieure($faker->word);
-            $categorie->setChambreDoubleDeluxe($faker->word);
-            $categorie->setSuiteJunior($faker->word);
-
+            $categorie->setLibelle($faker->randomElement($libelle));
+          
             $manager->persist($categorie);
 
             $categories[] = $categorie;
@@ -74,7 +82,7 @@ class AppFixtures extends Fixture
             $users[] = $user;
         }
 
-        for ($j = 0; $j <= 12; $j++) {
+        for ($j = 0; $j <= 10; $j++) {
             $reservation = new Reservation();
 
             $dateReservation = $faker->dateTimeBetween('-1 year', 'now');
@@ -85,7 +93,7 @@ class AppFixtures extends Fixture
             $reservation->setUser($user);
 
             $reservation->setDateReservation($dateReservation);
-            $reservation->setDateEntrée($dateEntrée);
+            $reservation->setDateEntree($dateEntrée);
             $reservation->setDateSortie($dateSortie);
 
             $manager->persist($reservation);

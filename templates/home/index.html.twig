@@ -6,17 +6,17 @@
 
 {% block body %}
 
-{% block stylesheets %}
+    {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('assets/css/card.css')}}">
     <link rel="stylesheet" href="{{ asset('assets/css/room.css')}}">
+    {% endblock %}
     
 
-    {% endblock %}
 
 
-{% include ('home/card.html.twig') %}
-{% include ('home/room.html.twig')%}
+    {% include ('home/card.html.twig') %}
+    {% include ('home/room.html.twig')%}
 
 
 
