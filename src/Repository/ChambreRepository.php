@@ -48,9 +48,30 @@ class ChambreRepository extends ServiceEntityRepository
         ->andWhere('c.etat = :occupee')
         ->setParameter('occupee', false)
         ->getQuery()
-        ->getResult()
+        ->getSingleScalarResult()()
        ;}
 
+
+   /**
+     * @return Chambre[] Returns an array of Chambre objects
+   */
+
+       public function findOneByChiffre()
+   {
+       return $this->createQueryBuilder('c')
+       ->select('SUM(c.tarif) as chiffre')
+       ->leftJoin('c.reservationChambres', 'rc')
+       ->leftJoin('rc.reservation', 'r')
+        ->where('r.dateEntree <= :dateActuelle')
+        ->andWhere('r.dateSortie >= :dateActuelle')
+        ->setParameter('dateActuelle', new \DateTime())
+       ->getQuery()
+       ->getResult()
+       ;}
+       
+        
+
+       
 // public function findcountChambre(): int
 // {
 //     return $this->createQueryBuilder('c')
