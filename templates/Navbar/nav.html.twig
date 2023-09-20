@@ -59,17 +59,18 @@
         {% endif %}
 
 
-       {% if not is_granted('ROLE_ADMIN') %}
+        {% if not app.user %}
         <li class="nav-item">
-          <a class="nav-link active" href="/user/reservations"><img class="bl" src="/img/Vector (1).png" alt="">Mes
-            réservations</a>
+          <a class="nav-link active" href="/contact"><img src="/img/Vector (3).png" alt="">Contactez-nous</a>
         </li>
-           {# {% else %}
-           <li class="nav-item">
+        {% elseif is_granted('ROLE_USER') %}
+        <li class="nav-item">
+          {% if 'ROLE_ADMIN' not in app.user.roles %}
           <a class="nav-link active" href="/user/reservations"><img class="bl" src="/img/Vector (1).png" alt="">Mes
             réservations</a>
-        </li> #}
-         {% endif %}
+          {% endif %}
+        </li>
+        {% endif %}
       </ul>
     </div>
   </div>

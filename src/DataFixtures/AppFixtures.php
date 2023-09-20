@@ -17,6 +17,7 @@ class AppFixtures extends Fixture
     {
         $faker = Factory::create();
 
+        
 $libelle = [
 
     "Chambre double superieure",
@@ -33,16 +34,45 @@ $libelle = [
             $categorie = new Categorie();
             $categorie->setLibelle($faker->randomElement($libelle));
           
-            $manager->persist($categorie);
+               $manager->persist($categorie);
 
             $categories[] = $categorie;
         }
 
+
+
+$libelle = [
+
+            "Chambre évasion ",
+            "Chambre deluxe",
+            "Suite Junior",
+            "Chambre Loft Urbain ",
+            "Chambre Vintage",
+            "Suite Penthouse",
+            "Chambre Contemporaine",
+            "Suite Étoilée",
+            "Chambre Sérénité",
+            "Suite Exotique",
+            "Suite Suite Royale",
+            "Chambre Traditionnelle",
+            "Chambre ambiance Cosy",
+            "Chambre Oasis Urbaine",
+            "Chambre Sérénité Naturelle",
+            "Chambre Luxe Urbain",
+            "Suite élégance chic",
+            "Suite confort épuré",
+            "Suite Raffinement Contemporain",
+            "Chambre Harmonie Relaxante",
+
+        ];
         $chambres = [];
 
         for ($j = 0; $j <= 10; $j++) {
             $chambre = new Chambre();
+            
             $chambre->setTarif($faker->numberBetween(100, 500));
+            $chambre->setetat($faker->boolean);
+            $chambre->setLibelle($faker->randomElement($libelle));
             $chambre->setSuperficie($faker->numberBetween(16, 50) . ' m²');
             $chambre->setVueSurMer($faker->boolean);
             $chambre->setChainesàLaCarte($faker->boolean);
@@ -82,7 +112,7 @@ $libelle = [
             $users[] = $user;
         }
 
-        for ($j = 0; $j <= 10; $j++) {
+        for ($j = 0; $j <= 12; $j++) {
             $reservation = new Reservation();
 
             $dateReservation = $faker->dateTimeBetween('-1 year', 'now');

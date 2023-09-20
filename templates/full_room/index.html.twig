@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello FullRoomController!{% endblock %}
+
+{% block body %}
+<h1>Liste des Chambres occupées</h1>
+
+<p style="font-size: 20px; color: darkblue; font-weight: bold; font-family: Arial, sans-serif;">Nombre de chambres
+    occupées : {{ nbrChambre }} </p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Numéro de la chambre</th>
+            <th scope="col">Tarif</th>
+            <th scope="col">Superficie</th>
+            <th scope="col">Catégorie</th>
+            <th scope="col">État</th>
+            <th scope="col">User</th>
+            <th scope="col">Dates de réservation</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for chambre in FullRoom %}
+        <tr>
+            <th scope="row">{{ chambre.id }}</th>
+            <td>{{ chambre.tarif }} euros</td>
+            <td>{{ chambre.superficie }}</td>
+            <td>{{ chambre.categorie.libelle }}</td>
+            <td>{{ chambre.etat ? 'libre' : 'occupée' }}</td>
+           
+        <td>
+            
+            {% for reservationChambre in chambre.reservationChambres %}
+            {{ reservationChambre.reservation.user.nom }} {{ reservationChambre.reservation.user.prenom }}<br>
+            {% endfor %}
+         
+        </td>
+        <td>
+          
+            {% for reservationChambre in chambre.reservationChambres %}
+            {{ reservationChambre.reservation.dateEntree|date('Y-m-d') }} - {{
+            reservationChambre.reservation.dateSortie|date('Y-m-d') }}<br>
+            {% endfor %}
+           
+        </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+

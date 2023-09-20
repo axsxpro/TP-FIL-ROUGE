@@ -28,8 +28,8 @@ class Reservation
     #[ORM\OneToMany(mappedBy: 'reservation', targetEntity: ReservationChambre::class)]
     private Collection $reservationChambres;
 
-    #[ORM\ManyToOne(inversedBy: 'user')]
-    private ?User $user = null;
+   #[ORM\ManyToOne(inversedBy: 'user')]
+private ?User $user = null;
 
     public function __construct()
     {

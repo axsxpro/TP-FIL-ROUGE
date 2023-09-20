@@ -22,6 +22,7 @@ class ReservationChambre
     private ?Chambre $chambre = null;
 
     #[ORM\ManyToOne(inversedBy: 'reservationChambres')]
+    
     #[ORM\JoinColumn(nullable: false)]
     private ?Reservation $reservation = null;
 

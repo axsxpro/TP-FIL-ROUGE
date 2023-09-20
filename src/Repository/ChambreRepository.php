@@ -21,6 +21,54 @@ class ChambreRepository extends ServiceEntityRepository
         parent::__construct($registry, Chambre::class);
     }
 
+
+   /**
+     * @return Chambre[] Returns an array of Chambre objects
+   */
+  public function findEmptyRooms()
+   {
+       return $this->createQueryBuilder('c')
+           ->andWhere('c.etat =:libre')
+           ->setParameter('libre', true)
+           ->getQuery()
+           ->getResult()
+       ;}
+
+        /**
+     * @return Chambre[] Returns an array of Chambre objects
+   */
+
+       public function findOneByRoom()
+   {
+       return $this->createQueryBuilder('c')
+       ->select('c','rc','r','u')
+       ->leftJoin('c.reservationChambres', 'rc')
+        ->leftJoin('rc.reservation', 'r')
+        ->leftJoin('r.user', 'u')
+        ->andWhere('c.etat = :occupee')
+        ->setParameter('occupee', false)
+        ->getQuery()
+        ->getResult()
+       ;}
+
+// public function findcountChambre(): int
+// {
+//     return $this->createQueryBuilder('c')
+//         ->select('COUNT(c.id)') 
+//         ->getQuery()
+//         ->getSingleScalarResult(); 
+// }
+
+
+
+//     public function findcountReservation(): int
+// {
+//     return $this->createQueryBuilder('rc')
+//         ->select('COUNT(rc.id)') 
+//         ->getQuery()
+//         ->getSingleScalarResult(); 
+// }
+
 //    /**
 //     * @return Chambre[] Returns an array of Chambre objects
 //     */
