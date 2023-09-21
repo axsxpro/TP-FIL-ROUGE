@@ -21,6 +21,21 @@ class ChambreRepository extends ServiceEntityRepository
         parent::__construct($registry, Chambre::class);
     }
 
+
+    public function afficherChambreLibre($etat)
+    {
+        // Utilisation du QueryBuilder pour créer une requête SQL
+        return $this->createQueryBuilder('chambre') // Alias de la table 'Categorie' nommé aussi 'categorie'
+            ->select('chambre.etat') //Sélectionne uniquement la colonne 'etat', equivaut à : SELECT etat from chambre
+            ->where('chambre.etat = :libre') // condition where, equivaut à : where libelle = :libelle(parametre/valeur)
+            ->setParameter('libre', $etat)  // Lie la valeur true au paramètre :libre('libre')
+            ->getQuery(); // Obtient l'objet de requête
+            // ->getSingleScalarResult(); // Exécute la requête et récupère un seul résultat scalaire 
+    }
+
+
+
+
 //    /**
 //     * @return Chambre[] Returns an array of Chambre objects
 //     */

@@ -19,18 +19,51 @@ class AppFixtures extends Fixture
     {
         $faker = Factory::create();
 
+
+        $libelle = [
+
+            "Chambre double superieure",
+            "Chambre double deluxe",
+            "Suite Junior",
+        
+        ];
         $categories = [];
 
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < count($libelle); $i++) {
             $categorie = new Categorie();
-            $categorie->setChambreDoubleSuperieure($faker->word);
-            $categorie->setChambreDoubleDeluxe($faker->word);
-            $categorie->setSuiteJunior($faker->word);
-
+            $categorie->setLibelle($faker->randomElement($libelle));
+        
             $manager->persist($categorie);
 
             $categories[] = $categorie;
         }
+
+
+        $libelle = [
+
+            "Chambre évasion ",
+            "Chambre deluxe",
+            "Suite Junior",
+            "Chambre Loft Urbain ",
+            "Chambre Vintage",
+            "Suite Penthouse",
+            "Chambre Contemporaine",
+            "Suite Étoilée",
+            "Chambre Sérénité",
+            "Suite Exotique",
+            "Suite Royale",
+            "Chambre Traditionnelle",
+            "Chambre ambiance Cosy",
+            "Chambre Oasis Urbaine",
+            "Chambre Sérénité Naturelle",
+            "Chambre Luxe Urbain",
+            "Suite élégance chic",
+            "Suite confort épuré",
+            "Suite Raffinement Contemporain",
+            "Chambre Harmonie Relaxante",
+
+        ];
+
 
         $chambres = [];
 
@@ -48,6 +81,9 @@ class AppFixtures extends Fixture
             $chambre->setCoffreFort($faker->boolean);
             $chambre->setMaterielDeRepassage($faker->boolean);
             $chambre->setWiFiGratuit($faker->boolean);
+            $chambre->setEtat($faker->boolean);
+            $chambre->setLibelle($faker->randomElement($libelle));
+            // $chambre->setLibelle($libelle[$j % count($libelle)]);
 
             $categorie = $faker->randomElement($categories);
 
@@ -58,9 +94,10 @@ class AppFixtures extends Fixture
             $chambres[] = $chambre;
         }
 
+
         $users = [];
 
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             $user = new User();
 
             $user->setNom($faker->lastName);
@@ -76,7 +113,7 @@ class AppFixtures extends Fixture
             $users[] = $user;
         }
 
-        for ($j = 0; $j <= 50; $j++) {
+        for ($j = 0; $j <= 10; $j++) {
             $reservation = new Reservation();
 
             $dateReservation = $faker->dateTimeBetween('-1 year', 'now');
@@ -99,7 +136,7 @@ class AppFixtures extends Fixture
                 $reservationChambre = new ReservationChambre();
                 $reservationChambre->setChambre($chambre);
                 $reservationChambre->setReservation($reservation);
-                $reservationChambre->setDateReservation($dateReservation);
+                $reservationChambre->setDateDeReservation($dateReservation);
 
 
                 $manager->persist($reservationChambre);

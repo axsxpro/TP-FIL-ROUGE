@@ -21,6 +21,22 @@ class CategorieRepository extends ServiceEntityRepository
         parent::__construct($registry, Categorie::class);
     }
 
+
+    // fonction qui Recherche l'ID d'une catégorie en fonction de son libellé.
+    public function findCategoryIdByLibelle($libelle)
+    {
+        // Utilisation du QueryBuilder pour créer une requête SQL
+        return $this->createQueryBuilder('categorie') // Alias de la table 'Categorie' nommé aussi 'categorie'
+            ->select('categorie.id') //Sélectionne uniquement la colonne 'id', equivaut à : SELECT id from categorie
+            ->where('categorie.libelle = :libelle') // condition where, equivaut à : where libelle = :libelle(parametre/valeur)
+            ->setParameter('libelle', $libelle)  // Lie la valeur du libellé ($libelle) au paramètre :libelle('libelle')
+            ->getQuery() // Obtient l'objet de requête
+            ->getSingleScalarResult(); // Exécute la requête et récupère un seul résultat scalaire (l'ID)
+    }
+
+
+
+
 //    /**
 //     * @return Categorie[] Returns an array of Categorie objects
 //     */

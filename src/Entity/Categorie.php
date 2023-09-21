@@ -15,17 +15,13 @@ class Categorie
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $chambre_double_superieure = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $chambre_double_deluxe = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $suite_junior = null;
+ 
 
     #[ORM\OneToMany(mappedBy: 'categorie', targetEntity: Chambre::class)]
     private Collection $categorie;
+
+    #[ORM\Column(length: 255)]
+    private ?string $libelle = null;
 
     public function __construct()
     {
@@ -37,41 +33,9 @@ class Categorie
         return $this->id;
     }
 
-    public function getChambreDoubleSuperieure(): ?string
-    {
-        return $this->chambre_double_superieure;
-    }
+   
 
-    public function setChambreDoubleSuperieure(string $chambre_double_superieure): static
-    {
-        $this->chambre_double_superieure = $chambre_double_superieure;
-
-        return $this;
-    }
-
-    public function getChambreDoubleDeluxe(): ?string
-    {
-        return $this->chambre_double_deluxe;
-    }
-
-    public function setChambreDoubleDeluxe(string $chambre_double_deluxe): static
-    {
-        $this->chambre_double_deluxe = $chambre_double_deluxe;
-
-        return $this;
-    }
-
-    public function getSuiteJunior(): ?string
-    {
-        return $this->suite_junior;
-    }
-
-    public function setSuiteJunior(string $suite_junior): static
-    {
-        $this->suite_junior = $suite_junior;
-
-        return $this;
-    }
+   
 
     /**
      * @return Collection<int, Chambre>
@@ -99,6 +63,18 @@ class Categorie
                 $categorie->setCategorie(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLibelle(): ?string
+    {
+        return $this->libelle;
+    }
+
+    public function setLibelle(string $libelle): static
+    {
+        $this->libelle = $libelle;
 
         return $this;
     }

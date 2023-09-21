@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ChambreRepository::class)]
+
 class Chambre
 {
     #[ORM\Id]
@@ -57,6 +58,14 @@ class Chambre
     #[ORM\ManyToOne(inversedBy: 'categorie')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Categorie $categorie = null;
+
+    #[ORM\Column]
+    private ?bool $etat = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $libelle = null;
+
+  
 
     public function __construct()
     {
@@ -253,4 +262,30 @@ class Chambre
 
         return $this;
     }
+
+    public function isEtat(): ?bool
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(bool $etat): static
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+    public function getLibelle(): ?string
+    {
+        return $this->libelle;
+    }
+
+    public function setLibelle(string $libelle): static
+    {
+        $this->libelle = $libelle;
+
+        return $this;
+    }
+
+
 }
