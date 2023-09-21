@@ -20,7 +20,6 @@ final class Version20230913091255 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE TABLE categorie (id INT AUTO_INCREMENT NOT NULL, chambre_double_superieure VARCHAR(255) NOT NULL, chambre_double_deluxe VARCHAR(255) NOT NULL, suite_junior VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE chambre ADD categorie_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE chambre ADD CONSTRAINT FK_C509E4FFBCF5E72D FOREIGN KEY (categorie_id) REFERENCES categorie (id)');
         $this->addSql('CREATE INDEX IDX_C509E4FFBCF5E72D ON chambre (categorie_id)');

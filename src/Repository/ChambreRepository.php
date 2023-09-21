@@ -21,20 +21,35 @@ class ChambreRepository extends ServiceEntityRepository
         parent::__construct($registry, Chambre::class);
     }
 
-//    /**
-//     * @return Chambre[] Returns an array of Chambre objects
-//     */
-//    public function findByExampleField($value): array
+   /**
+    * @return Chambre[] Returns an array of Chambre objects
+    */
+//    public function findByOneDonnes(): array
 //    {
 //        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('c.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
+//        ->select('c', 'u', 'r')
+//        ->leftJoin('c.reservation', 'r')
+//        ->leftJoin('r', 'u')
+//        ->andWhere('r.DateReservation = :date')
+//        ->setParameter('date', new \DateTime())
+//        ->orderBy('c.id', 'ASC')
+//        ->setMaxResults(10)
+//        ->getQuery()
+//        ->getResult()
 //        ;
 //    }
+//    public function findOneByRoom()
+//    {
+//        return $this->createQueryBuilder('c')
+//        ->select('c','rc','r','u')
+//        ->leftJoin('c.reservationChambres', 'rc')
+//         ->leftJoin('rc.reservation', 'r')
+//         ->leftJoin('r.user', 'u')
+//         ->andWhere('c.tarif = :occupee')
+//         ->setParameter('occupee', false)
+//         ->getQuery()
+//         ->getSingleScalarResult()()
+//        ;}
 
 //    public function findOneBySomeField($value): ?Chambre
 //    {
