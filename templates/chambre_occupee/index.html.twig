@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Chambres Occupées{% endblock %}
+
+{% block body %}
+<h1>Liste des Chambres occupées</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Numéro de la chambre</th>
+            <th scope="col">Numéro de la  reservation</th>
+            <th scope="col">Etat</th>
+            <th scope="col">User</th>
+              
+            <th scope="col">Email</th>
+            <th scope="col">Telephone</th>
+            <th scope="col">Arrivée - Départ</th>
+            {# <th scope="col">Depart</th>   #}
+        </tr>
+    </thead>
+    <tbody>
+            <tr>
+        {% for chambre in fullRoom %}
+            
+                <td>{{ chambre.c_id }}</td>
+                <td>{{ chambre.rc_id }}</td>
+                <td>{{ chambre.c_etat ? 'libre' : 'occupee' }}</td>
+                   <td>
+                      {% for reservationChambre in fullRoom %}
+               
+                    {{ reservationChambre.u_nom }}  {{ reservationChambre.u_prenom }}<br/>
+                      {% endfor %}
+                   </td>
+
+                <td>
+                      {% for reservationChambre in fullRoom %}
+               
+                    {{ reservationChambre.u_email }} <br/>
+                      {% endfor %}
+                   </td>
+
+                    <td>
+                     {% for reservationChambre in fullRoom %}
+               
+                    {{ reservationChambre.u_telephone }}<br/>
+                 {% endfor %}
+                   </td>
+
+                <td> 
+                    {% for reservation in fullRoom %}
+                    {{ reservation.r_dateEntree|date('Y-m-d') }} {{ reservation.r_dateSortie|date('Y-m-d') }} - <br>
+                    {% endfor %}
+                </td> 
+
+                  {# <td> 
+                    {% for reservation in fullRoom %}
+                    
+                     {% endfor %} 
+                </td>  #}
+                </tr>
+       
+             {% endfor %}
+    </tbody>
+</table>
+{% endblock %} 
+                    
+                    
+
+
+                    
+                   

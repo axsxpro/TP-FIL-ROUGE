@@ -58,6 +58,11 @@ class Chambre
     #[ORM\JoinColumn(nullable: false)]
     private ?Categorie $categorie = null;
 
+    #[ORM\Column]
+    private ?bool $etat = null;
+
+  
+
     public function __construct()
     {
         $this->reservationChambres = new ArrayCollection();
@@ -253,4 +258,20 @@ class Chambre
 
         return $this;
     }
-}
+
+    public function isEtat(): ?bool
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(bool $etat): static
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+   
+    
+
+    }

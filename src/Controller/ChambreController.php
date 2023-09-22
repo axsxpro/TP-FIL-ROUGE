@@ -22,5 +22,12 @@ class ChambreController extends AbstractController
             'controller_name' => 'ChambreController',
         ]);
     }
+    #[Route('/chambre/superieur', name: 'app_chambre_superieur')]
+    public function superieur(): Response
+    {
+        return $this->render('chambre/chambreSuperieur.html.twig', [
+            'controller_name' => 'ChambreController',
+        ]);
+    }
 }
 

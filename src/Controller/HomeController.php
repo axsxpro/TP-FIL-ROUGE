@@ -2,17 +2,118 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 
-class HomeController extends AbstractController
+// namespace App\DataFixtures;
+use App\Entity\User;
+use App\Entity\Reservation;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Persistence\ObjectManager;
+use App\Entity\Chambre;
+use App\Entity\Categorie;
+use Faker\Factory;
+use App\Entity\ReservationChambre;
+
+class HomeController extends Fixture
 {
-    #[Route('/', name: 'home')]
-    public function index(): Response
+    public function load(ObjectManager $manager): void
     {
-        return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
-        ]);
+        $faker = Factory::create();
+
+        $libelle = [
+            "Chambre double superieure",
+            "Chambre double deluxe",
+            "Suite Junior",
+        ];
+
+        $categories = [];
+
+        // Création des catégories de chambres
+        for ($i = 0; $i < count($libelle); $i++) {
+            $categorie = new Categorie();
+            $categorie->setLibelle($faker->randomElement($libelle));
+
+            $manager->persist($categorie);
+
+            $categories[] = $categorie;
+        }
+
+        $chambres = [];
+
+        // Création des chambres avec des caractéristiques aléatoires
+        for ($j = 0; $j <= 10; $j++) {
+            $chambre = new Chambre();
+            $chambre->setTarif($faker->numberBetween(100, 500));
+            $chambre->setSuperficie($faker->numberBetween(16, 50) . ' m²');
+            $chambre->setVueSurMer($faker->boolean);
+            $chambre->setChainesàLaCarte($faker->boolean);
+            $chambre->setClimatisation($faker->boolean);
+            $chambre->setTelevisionàEcranPlat($faker->boolean);
+            $chambre->setTelephone($faker->boolean);
+            $chambre->setChainesSatellite($faker->boolean);
+            $chambre->setChainesDuCable($faker->boolean);
+            $chambre->setCoffreFort($faker->boolean);
+            $chambre->setMaterielDeRepassage($faker->boolean);
+            $chambre->setWiFiGratuit($faker->boolean);
+            $chambre->setEtat($faker->boolean);
+
+            $categorie = $faker->randomElement($categories);
+
+            $chambre->setCategorie($categorie);
+
+            $manager->persist($chambre);
+
+            $chambres[] = $chambre;
+        }
+
+        $users = [];
+
+        // Création d'utilisateurs factices
+        for ($i = 0; $i < 5; $i++) {
+            $user = new User();
+
+            $user->setNom($faker->lastName);
+            $user->setPrenom($faker->firstName);
+            $user->setEmail($faker->email);
+            $user->setAdresse($faker->address);
+            $user->setDateDeNaissance($faker->dateTimeBetween('-50 years', '-18 years'));
+            $user->setTelephone($faker->phoneNumber);
+            $user->setPassword($faker->password);
+
+            $manager->persist($user);
+
+            $users[] = $user;
+        }
+
+        // Création de réservations avec des chambres associées
+        for ($j = 0; $j <= 10; $j++) {
+            $reservation = new Reservation();
+
+            $dateReservation = $faker->dateTimeBetween('-1 year', 'now');
+            $dateSortie = $faker->dateTimeBetween($dateReservation, '+1 month');
+            $dateEntrée = $faker->dateTimeBetween('-1 year', $dateSortie);
+
+            $user = $faker->randomElement($users);
+            $reservation->setUser($user);
+
+            $reservation->setDateReservation($dateReservation);
+            $reservation->setDateEntree($dateEntrée);
+            $reservation->setDateSortie($dateSortie);
+
+            $manager->persist($reservation);
+
+            // Associer des chambres à la réservation en utilisant l'entité pivot
+            $chambresReservees = $faker->randomElements($chambres, $faker->numberBetween(1, 5));
+
+            foreach ($chambresReservees as $chambre) {
+                $reservationChambre = new ReservationChambre();
+                $reservationChambre->setChambre($chambre);
+                $reservationChambre->setReservation($reservation);
+                $reservationChambre->setDatereservation($dateReservation);
+
+                $manager->persist($reservationChambre);
+            }
+        }
+
+        $manager->flush();
     }
 }
