@@ -21,6 +21,17 @@ class DashboardController extends AbstractDashboardController
     #[Route('/admin/dashboard', name: 'admin')]
     public function index(): Response
     {
+
+
+
+
+
+
+
+
+
+
+        
         // return parent::index();
 
         // Option 1. You can make your dashboard redirect to some common page of your backend
@@ -65,6 +76,11 @@ public function configureMenuItems(): iterable
           yield MenuItem::linkToCrud('Categorie', 'fa fa-grip-vertical',  Categorie::class);
           yield MenuItem::linkToCrud('details de la chambre', 'fa fa-grip-vertical',  ReservationChambre::class);
           yield MenuItem::linkToCrud('Utilisateurs', 'far fa-user',  User::class);
+
+          //menu pour chiffre d'affaire
+
+          yield MenuItem::section('Statistiques');
+          yield MenuItem::linkToRoute('Chiffre d\'affaires', 'fa fa-money', 'app_chiffre_daffaires');
             
     }
-}
+} 

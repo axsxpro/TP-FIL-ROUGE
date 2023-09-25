@@ -54,12 +54,28 @@ public function findChambreByReservation(Reservation $reservation)
             ->getQuery()
             ->getResult();
     }
-
+    
+//  public function calculateChiffreDaffairesByMonth()
+// {
+//     $sql = '
+//         SELECT
+//             c.id,
+//             c.nom,
+//             c.description,
+//             DATE_FORMAT(rc.date_reservation, "%d-%m-%Y") AS formatted_date
+//         FROM
+//             chambre c
+//         JOIN
+//             reservation_chambre rc ON c.id = rc.chambre_id
+//         WHERE
+//             rc.reservation_id = :reservationId
+//     ';
 
     
 
+    
+// }
 }
-
 //afficher les reservations futures
     //   public function findcountReservation(): int
 // {

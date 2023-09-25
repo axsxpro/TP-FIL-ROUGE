@@ -3,3 +3,7 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+votre_route_pour_traiter_le_formulaire:
+    path: '/traiter-le-formulaire'
+    controller: App\Controller\ChiffreDaffairesController::traiterLeFormulaire
+    methods: ['POST']

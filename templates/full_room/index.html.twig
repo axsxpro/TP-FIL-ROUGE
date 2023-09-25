@@ -13,20 +13,19 @@
         <tr>
             <th scope="col">Numéro de la chambre</th>
             <th scope="col">Tarif</th>
-            <th scope="col">Superficie</th>
-            <th scope="col">Catégorie</th>
             <th scope="col">État</th>
             <th scope="col">User</th>
+            <th scope="col">Email</th>
+            <th scope="col">Téléphone</th>
+
             <th scope="col">Dates de réservation</th>
         </tr>
     </thead>
     <tbody>
-        {% for chambre in FullRoom %}
         <tr>
+            {% for chambre in FullRoom %}
             <th scope="row">{{ chambre.id }}</th>
             <td>{{ chambre.tarif }} euros</td>
-            <td>{{ chambre.superficie }}</td>
-            <td>{{ chambre.categorie.libelle }}</td>
             <td>{{ chambre.etat ? 'libre' : 'occupée' }}</td>
            
         <td>
@@ -35,6 +34,17 @@
             {{ reservationChambre.reservation.user.nom }} {{ reservationChambre.reservation.user.prenom }}<br>
             {% endfor %}
          
+        </td>
+        <td>
+            {% for reservationChambre in chambre.reservationChambres %}
+            {{ reservationChambre.reservation.user.email }}<br>
+            {% endfor %}
+        </td>
+        
+        <td>
+            {% for reservationChambre in chambre.reservationChambres %}
+            {{ reservationChambre.reservation.user.telephone }}<br>
+            {% endfor %}
         </td>
         <td>
           

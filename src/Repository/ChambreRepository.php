@@ -41,15 +41,15 @@ class ChambreRepository extends ServiceEntityRepository
        public function findOneByRoom()
    {
        return $this->createQueryBuilder('c')
-       ->select('c','rc','r','u')
-       ->leftJoin('c.reservationChambres', 'rc')
-        ->leftJoin('rc.reservation', 'r')
-        ->leftJoin('r.user', 'u')
-        ->andWhere('c.etat = :occupee')
-        ->setParameter('occupee', false)
+        ->select('c', 'rc', 'r', 'u')
+        ->join('c.reservationChambres', 'rc')
+        ->join('rc.reservation', 'r')
+        ->join('r.user', 'u')
+        ->where('c.etat = :etat')
+        ->setParameter('etat', true)
         ->getQuery()
-        ->getSingleScalarResult()()
-       ;}
+        ->getResult();
+   }
 
 
    /**
@@ -69,7 +69,20 @@ class ChambreRepository extends ServiceEntityRepository
        ->getResult()
        ;}
        
-        
+   public function calculateChiffreDaffaires(\DateTime $startDate, \DateTime $endDate)
+{
+    $queryBuilder = $this->createQueryBuilder('c')
+        ->select('SUM(c.tarif) as chiffre')
+        ->leftJoin('c.reservationChambres', 'rc')
+        ->leftJoin('rc.reservation', 'r')
+        ->where('r.dateEntree <= :endDate')
+        ->andWhere('r.dateSortie >= :startDate')
+        ->setParameter('startDate', $startDate)
+        ->setParameter('endDate', $endDate)
+        ->getQuery();
+
+    return $queryBuilder->getSingleScalarResult();
+}
 
        
 // public function findcountChambre(): int
