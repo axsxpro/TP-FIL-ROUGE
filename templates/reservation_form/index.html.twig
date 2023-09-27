@@ -1,0 +1,32 @@
+
+{% block title %}{% endblock %}
+
+{% block body %}
+<style>
+    
+</style>
+
+<div class="example-wrapper">
+
+    {{form_start(form)}}
+
+    {{form_label(form.DateReservation, 'Date de reservation') }}
+    {{form_widget(form.DateReservation) }}
+    {{ form_errors(form.DateReservation) }}
+
+    {{form_label(form.DateEntree, 'Date d\'entrée') }}
+    {{form_widget(form.DateEntree, {'attr': {'placeholder': 'Votre contenu ici'}}) }}
+    {{ form_errors(form.DateEntree) }}
+    
+    {{form_label(form.DateSortie, 'Date de sortie') }}
+    {{form_widget(form.DateSortie, {'attr': {'placeholder': 'Votre contenu ici'}}) }}
+    {{ form_errors(form.DateSortie) }}
+    
+
+    <button type="submit" class="btn btn-primary mt-3 mb-5">Enregistrer</button>
+
+    {{form_end(form)}}
+
+</div>
+
+{% endblock %}

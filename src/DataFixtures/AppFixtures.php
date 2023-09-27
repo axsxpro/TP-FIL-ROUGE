@@ -10,7 +10,7 @@ use Doctrine\Persistence\ObjectManager;
 use App\Entity\Chambre;
 use App\Entity\Categorie;
 use Faker\Factory;
-use App\Entity\ReservationChambre;
+
 
 
 class AppFixtures extends Fixture
@@ -25,14 +25,15 @@ class AppFixtures extends Fixture
             "Chambre double superieure",
             "Chambre double deluxe",
             "Suite Junior",
-        
+
         ];
+
         $categories = [];
 
         for ($i = 0; $i < count($libelle); $i++) {
             $categorie = new Categorie();
             $categorie->setLibelle($faker->randomElement($libelle));
-        
+
             $manager->persist($categorie);
 
             $categories[] = $categorie;
@@ -122,6 +123,7 @@ class AppFixtures extends Fixture
 
             $user = $faker->randomElement($users);
             $reservation->setUser($user);
+            $reservation->setChambre($chambre);
 
             $reservation->setDateReservation($dateReservation);
             $reservation->setDateEntree($dateEntrée);
@@ -132,14 +134,14 @@ class AppFixtures extends Fixture
             // Associer des chambres à la réservation en utilisant l'entité pivot
             $chambresReservees = $faker->randomElements($chambres, $faker->numberBetween(1, 5));
 
+
+            // Associer des chambres à la réservation en utilisant l'entité pivot
+            $chambresReservees = $faker->randomElements($chambres, $faker->numberBetween(1, 11));
+            
             foreach ($chambresReservees as $chambre) {
-                $reservationChambre = new ReservationChambre();
-                $reservationChambre->setChambre($chambre);
-                $reservationChambre->setReservation($reservation);
-                $reservationChambre->setDateDeReservation($dateReservation);
+            $reservation->addChambre($chambre);
+            $manager->persist($reservation);
 
-
-                $manager->persist($reservationChambre);
             }
         }
 

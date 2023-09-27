@@ -38,12 +38,26 @@
 
             <h1 id="titre">{{chambre.libelle}}</h1>
 
-
+            
             <div class="detailsEtreserver">
 
             {# lors du click on va faire appel à la fonction avec en parametre l'id de la chambre #}
             <button type="button" id="button" onclick="afficherDetails('{{ chambre.Id }}')"><img src="./img/bouton +.png" alt="bouton+" id="imageButton"> Afficher les détails de la chambre</button>
+            
+            {# condition si l'utilisateur est connecté alors renvoi vers la page panier #}
+            {# is_granted: vérifier si un certain accès (une autorisation) est accordé à l'utilisateur actuel dans l'application. #}
+            {# "ROLE_USER" : vérifier si l'utilisateur actuel possède le rôle "ROLE_USER" #}
+            {% if is_granted('ROLE_USER') %}
+            
+            {# bouton pour reserver avec en paremetre l'id de la chambre #}
             <a href="{{ path('cart_add', {'id': chambre.Id}) }}" class="btn btn-outline-warning"><b>Réserver</b></a>
+    
+            {# s'il n'est pas connecté alors renvoi vers la page login #}
+            {% else %}
+ 
+            <a href="/login" class="btn btn-outline-warning"><b>Réserver</b></a>
+ 
+            {% endif %}
 
             </div>
 
@@ -88,6 +102,10 @@
             </ul>
 
         </div>
+
+        {% else %}
+
+        <h6 colspan="5" class="text-center" style="color:red">Veuillez-nous excuser, toutes nos chambres Junior sont réservées 🚫</h6>
 
         {% endfor %}
 

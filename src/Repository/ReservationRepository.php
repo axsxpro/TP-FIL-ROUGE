@@ -21,28 +21,64 @@ class ReservationRepository extends ServiceEntityRepository
         parent::__construct($registry, Reservation::class);
     }
 
-//    /**
-//     * @return Reservation[] Returns an array of Reservation objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('r')
-//            ->andWhere('r.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('r.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
 
-//    public function findOneBySomeField($value): ?Reservation
-//    {
-//        return $this->createQueryBuilder('r')
-//            ->andWhere('r.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function findReservationsByUser(): array
+    {
+        return $this->createQueryBuilder('r')
+            ->leftJoin('r.user', 'u') // Jointure avec la table User
+            ->select(['u.id as userId', 'r']) // Sélectionnez l'ID de l'utilisateur
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return Reservation[] Returns an array of Reservation objects
+     */
+
+    public function findcountReservation(): int
+    {
+        return $this->createQueryBuilder('rc')
+            ->select('COUNT(rc.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+
+    public function findChambreByReservation(Reservation $reservation)
+    {
+        return $this->createQueryBuilder('r')
+            ->select('c')
+            ->join('r.reservationChambres', 'rc')
+            ->join('rc.chambre', 'c')
+            ->where('r.id = :reservationId')
+            ->setParameter('reservationId', $reservation->getId())
+            ->getQuery()
+            ->getResult();
+    }
+
+
+    //    /**
+    //     * @return Reservation[] Returns an array of Reservation objects
+    //     */
+    //    public function findByExampleField($value): array
+    //    {
+    //        return $this->createQueryBuilder('r')
+    //            ->andWhere('r.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->orderBy('r.id', 'ASC')
+    //            ->setMaxResults(10)
+    //            ->getQuery()
+    //            ->getResult()
+    //        ;
+    //    }
+
+    //    public function findOneBySomeField($value): ?Reservation
+    //    {
+    //        return $this->createQueryBuilder('r')
+    //            ->andWhere('r.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
 }

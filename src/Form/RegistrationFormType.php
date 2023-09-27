@@ -107,7 +107,6 @@ class RegistrationFormType extends AbstractType
 
             // Spécifie que les données du formulaire seront liées à la classe User
             // Cette option spécifie quelle classe sera utilisée pour créer un objet à partir des données du formulaire.
-            
             'data_class' => User::class, 
         ]);
     }

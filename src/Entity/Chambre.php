@@ -52,8 +52,6 @@ class Chambre
     #[ORM\Column]
     private ?int $wifiGratuit = null;
 
-    #[ORM\OneToMany(mappedBy: 'chambre', targetEntity: ReservationChambre::class)]
-    private Collection $reservationChambres;
 
     #[ORM\ManyToOne(inversedBy: 'categorie')]
     #[ORM\JoinColumn(nullable: false)]
@@ -65,12 +63,16 @@ class Chambre
     #[ORM\Column(length: 255)]
     private ?string $libelle = null;
 
-  
+    #[ORM\OneToMany(mappedBy: 'chambre', targetEntity: Reservation::class)]
+    private Collection $reservations;
 
     public function __construct()
     {
-        $this->reservationChambres = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
     }
+
+
+
 
     public function getId(): ?int
     {
@@ -221,35 +223,8 @@ class Chambre
         return $this;
     }
 
-    /**
-     * @return Collection<int, ReservationChambre>
-     */
-    public function getReservationChambres(): Collection
-    {
-        return $this->reservationChambres;
-    }
 
-    public function addReservationChambre(ReservationChambre $reservationChambre): static
-    {
-        if (!$this->reservationChambres->contains($reservationChambre)) {
-            $this->reservationChambres->add($reservationChambre);
-            $reservationChambre->setChambre($this);
-        }
 
-        return $this;
-    }
-
-    public function removeReservationChambre(ReservationChambre $reservationChambre): static
-    {
-        if ($this->reservationChambres->removeElement($reservationChambre)) {
-            // set the owning side to null (unless already changed)
-            if ($reservationChambre->getChambre() === $this) {
-                $reservationChambre->setChambre(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function getCategorie(): ?Categorie
     {
@@ -286,6 +261,37 @@ class Chambre
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Reservation>
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservation $reservation): static
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations->add($reservation);
+            $reservation->setChambre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): static
+    {
+        if ($this->reservations->removeElement($reservation)) {
+            // set the owning side to null (unless already changed)
+            if ($reservation->getChambre() === $this) {
+                $reservation->setChambre(null);
+            }
+        }
+
+        return $this;
+    }
+
 
 
 }

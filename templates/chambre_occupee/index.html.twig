@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Chambres Occupées{% endblock %}
+
+{% block body %}
+<h1>Liste des Chambres occupées</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">ID chambre</th>
+            <th scope="col">ID reservation</th>
+            <th scope="col">Etat</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Prenom</th>
+            <th scope="col">Email</th>
+            <th scope="col">Telephone</th>
+            <th scope="col">Date arrivée</th>
+            <th scope="col">Date depart</th>
+        </tr>
+    </thead>
+
+    <tbody>
+ 
+        {# chambre : clé #}
+        {# chambreFull : tableau qui contient toute les chambres occupées. Voir dans le render ->  'ChambreFull' => $fullRoom, #}
+        {% for chambre in ChambreFull %}
+
+        {# tr = ligne d'un tableau #}
+        <tr>
+            {# td : colonne d'un tableau #}
+            <td>{{ chambre.id }}</td>
+            <td>
+                {% for reservationChambre in chambre.reservationChambres %}
+                {{ reservationChambre.id }}<br>
+                {% endfor %}
+            </td>
+            <td>{{ chambre.etat ? 'libre' : 'occupee' }}</td>
+            <td>
+                {% for user in chambre.reservationChambres %}
+                {{ user.reservation.user.nom }}<br>
+                {% endfor %}
+            </td>
+            <td>
+                {% for user in chambre.reservationChambres %}
+                {{ user.reservation.user.prenom }}<br>
+                {% endfor %}
+            </td>
+            <td>
+                {% for user in chambre.reservationChambres %}
+                {{ user.reservation.user.email }}<br>
+                {% endfor %}
+            </td>
+            <td>
+                {% for user in chambre.reservationChambres %}
+                {{ user.reservation.user.telephone }}<br>
+                {% endfor %}
+            </td>
+            <td>
+                {% for user in chambre.reservationChambres %}
+                {# une date est en interger et ne peut etre convertit en string #}
+                {# pour convertir en string on utilise la fonction |date('Y-m-d')  #}
+                {{ user.reservation.DateEntree|date('Y-m-d') }}<br>
+                {% endfor %}
+            </td>
+            <td>
+                {% for user in chambre.reservationChambres %}
+                {{ user.reservation.DateSortie|date('Y-m-d') }}<br>
+                {% endfor %}
+            </td>
+        </tr>
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}

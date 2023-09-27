@@ -4,10 +4,7 @@
 
 
 {% block stylesheets %}
-
 <link rel="stylesheet" href="/assets/css/chambre.css">
-
-
 {% endblock %}
 
 
@@ -34,7 +31,7 @@
             {# {{ dump(image) }} #}
 
             {# ~ concatenation #}
-            <img src="{{ asset('./image/' ~ image) }}" alt="photo" style="width: 100%; height: auto;">
+            <img src="{{ asset('./image/' ~ image) }}" alt="{{chambre.libelle}}" style="width: 100%; height: auto;">
 
             <h1 id="titre">{{chambre.libelle}}</h1>
 
@@ -48,7 +45,7 @@
             </div>
 
             <ul id="details">
-                     
+                
                     {# Pour chaque tour de boucle, la div va prendre comme id le numero id de la chambre #}
                     <div class="descriptionChambre" id="description-{{ chambre.Id }}" >
 
@@ -56,10 +53,11 @@
                         <p>Superficie : {{chambre.Superficie}}</p>
                         <p>Tarif : {{chambre.tarif}} € / nuit(s)</p>
                         <p>Etat : {{ chambre.etat ? 'Libre' : 'Occupée' }}</p>
-
+                        
                         {% for categorie in categories %}
 
-                        {% if categorie.libelle == 'Chambre double superieure'%}
+                        {% if categorie.libelle == 'Chambre double deluxe'%}
+
                         <p>Type de chambre: {{categorie.libelle}}</p>
                         {% endif %}
 
@@ -88,6 +86,10 @@
             </ul>
 
         </div>
+
+        {% else %}
+
+        <h6 colspan="5" class="text-center" style="color:red">Veuillez-nous excuser, toutes nos chambres Deluxe sont réservées 🚫</h6>
 
         {% endfor %}
 

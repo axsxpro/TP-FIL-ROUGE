@@ -44,7 +44,6 @@ class ChambreController extends AbstractController
         // dd($images);
 
 
-
         /* FONCTION POUR AFFICHER LES CHAMBRES LIBRE ET PAR CATEGORIE
         _________________________________________________________________________________________________________________________*/
 
