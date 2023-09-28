@@ -25,17 +25,14 @@ class Reservation
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $dateSortie = null;
 
-    #[ORM\OneToMany(mappedBy: 'reservation', targetEntity: ReservationChambre::class)]
-    private Collection $reservationChambres;
-
     #[ORM\ManyToOne(inversedBy: 'user')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
-    public function __construct()
-    {
-        $this->reservationChambres = new ArrayCollection();
-    }
+    #[ORM\ManyToOne(inversedBy: 'chambre')]
+    private ?Chambre $chambre = null;
+
+  
 
     public function getId(): ?int
     {
@@ -78,35 +75,6 @@ class Reservation
         return $this;
     }
 
-    /**
-     * @return Collection<int, ReservationChambre>
-     */
-    public function getReservationChambres(): Collection
-    {
-        return $this->reservationChambres;
-    }
-
-    public function addReservationChambre(ReservationChambre $reservationChambre): static
-    {
-        if (!$this->reservationChambres->contains($reservationChambre)) {
-            $this->reservationChambres->add($reservationChambre);
-            $reservationChambre->setReservation($this);
-        }
-
-        return $this;
-    }
-
-    public function removeReservationChambre(ReservationChambre $reservationChambre): static
-    {
-        if ($this->reservationChambres->removeElement($reservationChambre)) {
-            // set the owning side to null (unless already changed)
-            if ($reservationChambre->getReservation() === $this) {
-                $reservationChambre->setReservation(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function getUser(): ?User
     {
@@ -119,4 +87,21 @@ class Reservation
 
         return $this;
     }
+
+    public function getChambre(): ?Chambre
+    {
+        return $this->chambre;
+    }
+
+    public function setChambre(?Chambre $chambre): static
+    {
+        $this->chambre = $chambre;
+
+        return $this;
+    }
+
+    
+
+ 
+   
 }

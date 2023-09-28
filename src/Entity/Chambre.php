@@ -51,17 +51,19 @@ class Chambre
     #[ORM\Column]
     private ?int $WifiGratuit = null;
 
-    #[ORM\OneToMany(mappedBy: 'chambre', targetEntity: ReservationChambre::class)]
-    private Collection $reservationChambres;
-
     #[ORM\ManyToOne(inversedBy: 'categorie')]
     private ?Categorie $categorie = null;
 
+    #[ORM\OneToMany(mappedBy: 'chambre', targetEntity: Reservation::class)]
+    private Collection $chambre;
+
     public function __construct()
     {
-        $this->reservationChambres = new ArrayCollection();
+        $this->chambre = new ArrayCollection();
     }
 
+
+   
     public function getId(): ?int
     {
         return $this->id;
@@ -211,45 +213,41 @@ class Chambre
         return $this;
     }
 
-    /**
-     * @return Collection<int, ReservationChambre>
-     */
-    public function getReservationChambres(): Collection
+   
+    public function getCategorie(): ?Categorie
     {
-        return $this->reservationChambres;
+        return $this->categorie;
     }
 
-    public function addReservationChambre(ReservationChambre $reservationChambre): static
+    /**
+     * @return Collection<int, Reservation>
+     */
+    public function getChambre(): Collection
     {
-        if (!$this->reservationChambres->contains($reservationChambre)) {
-            $this->reservationChambres->add($reservationChambre);
-            $reservationChambre->setChambre($this);
+        return $this->chambre;
+    }
+
+    public function addChambre(Reservation $chambre): static
+    {
+        if (!$this->chambre->contains($chambre)) {
+            $this->chambre->add($chambre);
+            $chambre->setChambre($this);
         }
 
         return $this;
     }
 
-    public function removeReservationChambre(ReservationChambre $reservationChambre): static
+    public function removeChambre(Reservation $chambre): static
     {
-        if ($this->reservationChambres->removeElement($reservationChambre)) {
+        if ($this->chambre->removeElement($chambre)) {
             // set the owning side to null (unless already changed)
-            if ($reservationChambre->getChambre() === $this) {
-                $reservationChambre->setChambre(null);
+            if ($chambre->getChambre() === $this) {
+                $chambre->setChambre(null);
             }
         }
 
         return $this;
     }
 
-    public function getCategorie(): ?Categorie
-    {
-        return $this->categorie;
-    }
-
-    public function setCategorie(?Categorie $categorie): static
-    {
-        $this->categorie = $categorie;
-
-        return $this;
-    }
+    
 }
