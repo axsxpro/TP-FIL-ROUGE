@@ -2,11 +2,21 @@
 
 namespace App\Controller;
 
+use App\Entity\Chambre;
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\PaiementType;
+use App\Repository\ChambreRepository;
+use App\Repository\ReservationRepository;
+use App\Repository\ReservztionRepository;
+use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Stripe\Checkout\Session;
+use Stripe\Stripe;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 class PaiementController extends AbstractController
@@ -24,23 +34,83 @@ class PaiementController extends AbstractController
         return $this->render('paiement/index.html.twig', [
             'form' => $form->createView(), // Creation du formulaire et le Passer le formulaire au template Twig
         ]);
-    
     }
 
 
-   
-    #[Route('/order/create/', name: 'app_paiement')]
-    public function stripeCheckout(): Response
+    #[Route('/order/create-session-stripe/{id}', name: 'payment_stripe')]
+    public function stripeCheckout($id, UserRepository $userRepository, ChambreRepository $chambreRepository, ReservationRepository $reservationRepository, Chambre $chambre): RedirectResponse
     {
 
-        // Créez une instance du formulaire
-        $form = $this->createForm(PaiementType::class);
+        // recupération de l'utilisateur connecté
+        $user = $this->getUser();
+
+        // rechercher les infos de l'utilisateur connecté
+        $utilisateur = $userRepository->find($user);
+
+        // recuperation de l'id de l'utilisateur (exemple: 130)
+        $userid = $utilisateur->getId();
+
+        // Récupérer la dernière réservations associées à l'utilisateur connecté
+        $reservation = $reservationRepository->findBy(
+
+            // on peut rechercher par plusieurs critéres : l'id de l'user, la dernière date de reservation, l'id de la chambre
+            ['user' => $userid],
+            ['DateReservation' => 'DESC'],
+            ['chambre' => $id],
+            1  // Limiter à une seule réservation  
+        );
+
+        // Affichage des réservations
+        dd($reservation);
+
+        // recupération de la chambre par son id
+        $recuperationChambre = $chambreRepository->find($id);
+        // dd($recuperationReservation);
+
+
+        // condition: s'il n'y a pas de panier alors on redirige vers la page ma reservation
+        if (!$recuperationChambre) {
+
+            return $this->redirectToRoute('reservation');
+        }
+
+
+        $dataReservation = [
+
+            'userid' => $utilisateur->getId(),
+            'nom' => $utilisateur->getNom(),
+            'prenom' => $utilisateur->getNom(),
+            'email' => $utilisateur->getEmail(),
+            'id' => $recuperationChambre->getId(),
+            'libelle' => $recuperationChambre->getLibelle(),
+            'prix' => $recuperationChambre->getTarif(),
+        ];
+
+        // dd($dataReservation);
+
+
+        Stripe::setApiKey('sk_test_51Nut3CARtHX7JHLqBgb66JQich3hgjpgisYDpmXEv0pibc1tUKPBDchQgGBVmVMlSy1ZRbUmbysnzY858GZJkoPs00bRKLAAOu');
+
+        $checkout_session = Session::create([
+            'line_items' => [[
+                // 'price' => 
+                // // 'currency' => 'eur',
+                // 'product_data' => [
+                //     'name' => 
+                // ]
+            ]],
+            // 'mode' => 'payment',
+            // 'success_url' => $YOUR_DOMAIN . '/success.html',
+            // 'cancel_url' => $YOUR_DOMAIN . '/cancel.html',
+        ]);
+
+
+
 
 
         return $this->render('paiement/index.html.twig', [
             'form' => $form->createView(), // Creation du formulaire et le Passer le formulaire au template Twig
         ]);
-    
     }
 
 
@@ -56,7 +126,7 @@ class PaiementController extends AbstractController
     //     $form->handleRequest($request);
 
     //     if ($form->isSubmitted() && $form->isValid()) {
-            
+
 
     //         // Récupérez les données du formulaire
     //         $formData = $form->getData();

@@ -90,7 +90,7 @@ class ReservationController extends AbstractController
 
             // Associer les chambres sélectionnées à la réservation
             foreach ($chambresSelectionnees as $chambreSelectionnee) {
-                $reservation->addChambre($chambreSelectionnee);
+                $reservation->addReservation($chambreSelectionnee);
 
                 // Mettre à jour l'état de la chambre en la marquant comme "occupée" (false)
                 $chambreSelectionnee->setEtat(false);
@@ -140,7 +140,7 @@ class ReservationController extends AbstractController
         if ($this->isCsrfTokenValid('delete' . $reservation->getId(), $request->request->get('_token'))) {
 
             // Récupérez toutes les chambres associées à la réservation
-            $chambresReservees = $reservation->getChambres();
+            $chambresReservees = $reservation->getChambre();
             dump($chambresReservees);
             if (!empty($chambresReservees)) {
                 foreach ($chambresReservees as $chambre) {

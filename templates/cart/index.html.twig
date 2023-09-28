@@ -38,21 +38,13 @@
                     <br>
                     <br>
 
-                    <li>
-                        <h4>Nom</h4>
-                    </li>
+                    <li><h4>Nom</h4></li>
                     <li>{{ app.user.prenom }}</li>
-                    <li>
-                        <h4>Prenom</h4>
-                    </li>
+                    <li><h4>Prenom</h4></li>
                     <li>{{ app.user.nom }}</li>
-                    <li>
-                        <h4>Adresse e-mail</h4>
-                    </li>
+                    <li><h4>Adresse e-mail</h4></li>
                     <li>{{ app.user.email}}</li>
-                    <li>
-                        <h4>Numéro de téléphone</h4>
-                    </li>
+                    <li><h4>Numéro de téléphone</h4></li>
                     <li>{{ app.user.telephone}}</li>
                 </ul>
             </div>
@@ -70,9 +62,7 @@
                     <li>20% du montant total</li>
                     <br>
                     <br>
-                    <li>
-                        <h4>Service gratuit fournit</h4>
-                    </li>
+                    <li><h4>Service gratuit fournit</h4></li>
                     <li>Nettoyage chambre 7j/7</li>
                     <li>Petit déjeuner</li>
                     <li>Salle de sport</li>
@@ -132,10 +122,7 @@
 
         <div class="blocButton">
             <button type="submit" class="btn btn-outline-success"><b>Confirmer ma reservation</b></button>
-            <a href="{{ path('reservation_delete', {'id': infoschambre.chambre.id}) }}"
-                class="btn btn-outline-danger"><b>Supprimer ma reservation</b></a>
-            {# <a href="{{ path('cart_add', {'id': element.chambre.id}) }}" class="btn btn-outline-success"><b>Confirmer
-                    ma reservation</b></a> #}
+            <a href="{{ path('reservation_delete', {'id': infoschambre.chambre.id}) }}" class="btn btn-outline-danger"><b>Vider ma reservation</b></a>
         </div>
 
         {{form_end(form)}}
