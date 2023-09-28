@@ -42,12 +42,11 @@ class Reservation
     private ?\DateTimeInterface $DateSortie = null;
 
 
-
     #[ORM\ManyToOne(inversedBy: 'user')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
-    #[ORM\ManyToOne(inversedBy: 'reservations')]
+    #[ORM\ManyToOne(inversedBy: 'chambre')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Chambre $chambre = null;
 

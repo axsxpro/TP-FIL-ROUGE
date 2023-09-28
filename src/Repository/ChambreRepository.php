@@ -30,7 +30,7 @@ class ChambreRepository extends ServiceEntityRepository
             ->where('chambre.etat = :libre') // condition where, equivaut à : where libelle = :libelle(parametre/valeur)
             ->setParameter('libre', $etat)  // Lie la valeur true au paramètre :libre('libre')
             ->getQuery(); // Obtient l'objet de requête
-        //->getScalarResult();
+            //->getScalarResult();
     }
 
 
