@@ -7,8 +7,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ReservationRepository::class)]
+
+
 class Reservation
 {
     #[ORM\Id]
@@ -17,24 +20,38 @@ class Reservation
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $dateReservation = null;
+    private ?\DateTimeInterface $DateReservation = null;
+
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $dateEntree = null;
+
+   
+
+    // ajout de condition pour valider le formulaire (champs qui ne doit pas etre vide et date entre qui ne doit pas etre antérieure à la date du jour)
+    #[Assert\NotBlank(
+        message: 'Veuillez indiquer une date.',
+    )]
+    private ?\DateTimeInterface $DateEntree = null;
+
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $dateSortie = null;
+    // ajout de condition pour valider le formulaire (champs qui ne doit pas etre vide et date sortie qui ne doit pas etre antérieure à la date entrée)
+    #[Assert\NotBlank(
+        message: 'Veuillez indiquer une date.',
+    )]
+    #[Assert\GreaterThan(
+    propertyPath: "DateEntree", 
+    message : 'La date de sortie doit être postérieure à la date d\'entrée.'
+    )]
+    private ?\DateTimeInterface $DateSortie = null;
 
-    #[ORM\OneToMany(mappedBy: 'reservation', targetEntity: ReservationChambre::class)]
-    private Collection $reservationChambres;
 
    #[ORM\ManyToOne(inversedBy: 'user')]
-private ?User $user = null;
+    private ?User $user = null;
 
-    public function __construct()
-    {
-        $this->reservationChambres = new ArrayCollection();
-    }
+    #[ORM\ManyToOne(inversedBy: 'chambre')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Chambre $chambre = null;
 
     public function getId(): ?int
     {
@@ -43,69 +60,43 @@ private ?User $user = null;
 
     public function getDateReservation(): ?\DateTimeInterface
     {
-        return $this->dateReservation;
+        return $this->DateReservation;
     }
 
-    public function setDateReservation(\DateTimeInterface $dateReservation): static
+    public function setDateReservation(\DateTimeInterface $DateReservation): static
     {
-        $this->dateReservation = $dateReservation;
+        $this->DateReservation = $DateReservation;
 
         return $this;
     }
 
     public function getDateEntree(): ?\DateTimeInterface
     {
-        return $this->dateEntree;
+
+
+        return $this->DateEntree;
     }
 
-    public function setDateEntree(\DateTimeInterface $dateEntree): static
+    public function setDateEntree(\DateTimeInterface $DateEntree): self
     {
-        $this->dateEntree = $dateEntree;
+        $this->DateEntree = $DateEntree;
+
 
         return $this;
     }
 
     public function getDateSortie(): ?\DateTimeInterface
     {
-        return $this->dateSortie;
+        return $this->DateSortie;
     }
 
-    public function setDateSortie(\DateTimeInterface $dateSortie): static
+    public function setDateSortie(\DateTimeInterface $DateSortie): static
     {
-        $this->dateSortie = $dateSortie;
+        $this->DateSortie = $DateSortie;
 
         return $this;
     }
 
-    /**
-     * @return Collection<int, ReservationChambre>
-     */
-    public function getReservationChambres(): Collection
-    {
-        return $this->reservationChambres;
-    }
-
-    public function addReservationChambre(ReservationChambre $reservationChambre): static
-    {
-        if (!$this->reservationChambres->contains($reservationChambre)) {
-            $this->reservationChambres->add($reservationChambre);
-            $reservationChambre->setReservation($this);
-        }
-
-        return $this;
-    }
-
-    public function removeReservationChambre(ReservationChambre $reservationChambre): static
-    {
-        if ($this->reservationChambres->removeElement($reservationChambre)) {
-            // set the owning side to null (unless already changed)
-            if ($reservationChambre->getReservation() === $this) {
-                $reservationChambre->setReservation(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function getUser(): ?User
     {
@@ -118,4 +109,18 @@ private ?User $user = null;
 
         return $this;
     }
+
+    public function getChambre(): ?Chambre
+    {
+        return $this->chambre;
+    }
+
+    public function setChambre(?Chambre $chambre): static
+    {
+        $this->chambre = $chambre;
+
+        return $this;
+    }
+
+
 }

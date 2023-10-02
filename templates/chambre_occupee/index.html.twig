@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Chambres Occupées{% endblock %}
+
+{% block body %}
+<h1>L'état de l'Hotel</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">ID chambre</th>
+            <th scope="col">ID reservation</th>
+            <th scope="col">Etat</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Prenom</th>
+            <th scope="col">Email</th>
+            <th scope="col">Telephone</th>
+            <th scope="col">Date arrivée</th>
+            <th scope="col">Date depart</th>
+        </tr>
+    </thead>
+
+    <tbody>
+    {% for chambre in ChambreFull %}
+    <tr>
+        <td>{{ chambre.id }}</td>
+        <td>
+            {% for reservation in chambre.chambre %}
+            {{ reservation.id }}<br>
+            {% endfor %}
+        </td>
+        <td>
+            {{ chambre.etat ? 'Libre' : 'Occupée' }}</td>
+        <td>
+            {% for reservation in chambre.chambre %}
+            {{ reservation.user.nom }}<br>
+            {% endfor %}
+        </td>
+        <td>
+            {% for reservation in chambre.chambre %}
+            {{ reservation.user.prenom }}<br>
+            {% endfor %}
+        </td>
+        <td>
+            {% for reservation in chambre.chambre %}
+            {{ reservation.user.email }}<br>
+            {% endfor %}
+        </td>
+        <td>
+            {% for reservation in chambre.chambre %}
+            {{ reservation.user.telephone }}<br>
+            {% endfor %}
+        </td>
+        <td>
+            {% for reservation in chambre.chambre %}
+            {{ reservation.DateEntree|date('Y-m-d') }}<br>
+            {% endfor %}
+        </td>
+        <td>
+            {% for reservation in chambre.chambre %}
+            {{ reservation.DateSortie|date('Y-m-d') }}<br>
+            {% endfor %}
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

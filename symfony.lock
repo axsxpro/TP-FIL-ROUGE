@@ -47,6 +47,18 @@
             "ref": "b131e6cbfe1b898a508987851963fff485986285"
         }
     },
+    "nelmio/cors-bundle": {
+        "version": "2.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "1.5",
+            "ref": "6bea22e6c564fba3a1391615cada1437d0bde39c"
+        },
+        "files": [
+            "./config/packages/nelmio_cors.yaml"
+        ]
+    },
     "phpunit/phpunit": {
         "version": "9.6",
         "recipe": {
@@ -214,7 +226,7 @@
         ]
     },
     "symfony/stimulus-bundle": {
-        "version": "2.11",
+        "version": "2.12",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
@@ -266,7 +278,7 @@
         ]
     },
     "symfony/ux-chartjs": {
-        "version": "v2.11.1"
+        "version": "v2.12.0"
     },
     "symfony/validator": {
         "version": "6.3",

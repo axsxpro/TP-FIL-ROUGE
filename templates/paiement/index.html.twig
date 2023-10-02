@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Paiement{% endblock %}
+
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Payment Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="email"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+
+    <div class="container">
+
+        <h2>Paiement par carte bancaire</h2>
+
+    <form method="POST" action="{{ path('app_confirmation') }}" novalidate>
+        {{ form_row(form.name, {'label': 'Nom Prénom:'}) }}
+        {{ form_row(form.card_number, {'label': 'N° de carte:'}) }}
+        {{ form_row(form.date_expiration, {'label': 'Date d\'expiration:', 'attr': {'placeholder': 'MM/YYYY'}}) }}
+        {{ form_row(form.CVV, {'label': 'CVV:'}) }}
+        {{ form_row(form.amount, {'label': 'Montant (€):'}) }}
+
+            <button type="submit">Pay Now</button>
+        {{ form_end(form) }}
+
+
+    <div class="payment-options">
+
+    <h2>Autres méthodes de paiement</h2>
+
+    <a href="https://www.paypal.com" target="_blank"><img src="/img/PayPal.svg.png" alt="PayPal" style="width: 100px; height: auto;"></a>
+    <a href="https://www.mastercard.com" target="_blank"><img src="/img/MasterCard_Logo.svg.webp" alt="MasterCard" style="width: 100px; height: auto;"></a>
+    <a href="https://www.visa.com" target="_blank"><img src="/img/Old_Visa_Logo.svg.png" alt="Visa" style="width: 100px; height: auto;"></a>
+    
+    </div>
+
+
+    </div>
+
+</body>
+</html>
+
+{% endblock %}

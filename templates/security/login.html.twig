@@ -1,6 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Inscription!{% endblock %}
+
+{# {% block title %}Inscription!{% endblock %} #}
+
+{% block title %}Page connexion!{% endblock %}
+
+
 
 {% block body %}
 
@@ -64,6 +69,7 @@
     margin: 30px;
 
 
+
     }
 
 
@@ -87,6 +93,7 @@
 </style>
 
 <form method="post">
+
     {# {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %} #}
@@ -96,6 +103,16 @@
             Bonjour, {{ app.user.userIdentifier }}! <a href="{{ path('app_logout') }}">Deconnexion</a>
         </div>
     {% endif %} #}
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    {% if app.user %}
+        <div class="mb-3">
+            Bonjour, {{ app.user.userIdentifier }}! <a href="{{ path('app_logout') }}">Deconnexion</a>
+        </div>
+    {% endif %}
+
 
 <div class="blocFormulaireInscription">
 
@@ -137,6 +154,7 @@
     <button  type="submit" id="btnConnexion"> CONNEXION </button>
     </div>
 
+
     {% if error %}
     <div class="alert alert-danger">
         {% if error.messageKey == 'Invalid credentials.' %}
@@ -148,6 +166,7 @@
 {% endif %}
 
     </div>
+
 
 
 

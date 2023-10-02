@@ -21,6 +21,7 @@ class ReservationRepository extends ServiceEntityRepository
         parent::__construct($registry, Reservation::class);
     }
 
+
 //     public function findReservationsByUser(): array
 // {
 //     return $this->createQueryBuilder('r')
@@ -43,17 +44,17 @@ public function findcountReservation(): int
 }
 
 
-public function findChambreByReservation(Reservation $reservation)
-    {
-        return $this->createQueryBuilder('r')
-            ->select('c')
-            ->join('r.reservationChambres', 'rc')
-            ->join('rc.chambre', 'c')
-            ->where('r.id = :reservationId')
-            ->setParameter('reservationId', $reservation->getId())
-            ->getQuery()
-            ->getResult();
-    }
+// public function findChambreByReservation(Reservation $reservation)
+//     {
+//         return $this->createQueryBuilder('r')
+//             ->select('c')
+//             ->join('r.reservationChambres', 'rc')
+//             ->join('rc.chambre', 'c')
+//             ->where('r.id = :reservationId')
+//             ->setParameter('reservationId', $reservation->getId())
+//             ->getQuery()
+//             ->getResult();
+//     }
     
 //  public function calculateChiffreDaffairesByMonth()
 // {
@@ -75,6 +76,43 @@ public function findChambreByReservation(Reservation $reservation)
 
     
 // }
+
+public function findAllReservation($reservationId)
+{
+    return $this->createQueryBuilder('r')
+        ->select('r', 'u', 'c')
+        ->leftJoin('r.chambre', 'c')
+        ->leftJoin('r.user', 'u')
+        ->andWhere('c.etat = :etat')
+        ->andWhere('r.id = :reservationId') 
+        ->setParameter('etat', false)
+        ->setParameter('reservationId', $reservationId) 
+        ->getQuery()
+        ->getScalarResult();
+}
+
+
+public function findReservationWithChambre()
+{
+    return $this->createQueryBuilder('r')
+        ->select('r', 'u', 'c')
+        ->leftJoin('r.chambre', 'c')
+        ->leftJoin('r.user', 'u')
+        ->andWhere('c.etat = :etat')
+        ->setParameter('etat', false)
+        // ->andWhere('r.id = :reservationId')
+        // ->setParameter('reservationId', $reservationId)
+        ->getQuery()
+        ->getScalarResult();
+}
+
+public function findAllReservations()
+    {
+        return $this->createQueryBuilder('r')
+            ->getQuery()
+            ->getResult();
+    }
+
 }
 //afficher les reservations futures
     //   public function findcountReservation(): int

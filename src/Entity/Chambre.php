@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ChambreRepository::class)]
+
 class Chambre
 {
     #[ORM\Id]
@@ -18,14 +19,14 @@ class Chambre
     #[ORM\Column]
     private ?int $tarif = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 255)]
     private ?string $superficie = null;
 
     #[ORM\Column]
     private ?int $vueSurMer = null;
 
     #[ORM\Column]
-    private ?int $chaines_à_laCarte = null;
+    private ?int $Chaines_à_laCarte = null;
 
     #[ORM\Column]
     private ?int $climatisation = null;
@@ -49,25 +50,28 @@ class Chambre
     private ?int $materielDeRepassage = null;
 
     #[ORM\Column]
-    private ?int $wiFiGratuit = null;
+    private ?int $WiFiGratuit= null;
 
-    #[ORM\OneToMany(mappedBy: 'chambre', targetEntity: ReservationChambre::class)]
-    private Collection $reservationChambres;
 
     #[ORM\ManyToOne(inversedBy: 'categorie')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Categorie $categorie = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $libelle = null;
 
     #[ORM\Column]
     private ?bool $etat = null;
 
-  
+    #[ORM\Column(length: 255)]
+    private ?string $libelle = null;
+
+    #[ORM\OneToMany(mappedBy: 'chambre', targetEntity: Reservation::class)]
+    private Collection $chambre;
+
     public function __construct()
     {
-        $this->reservationChambres = new ArrayCollection();
+        $this->chambre = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -112,12 +116,12 @@ class Chambre
 
     public function getChainesàLaCarte(): ?int
     {
-        return $this->chaines_à_laCarte;
+        return $this->Chaines_à_laCarte;
     }
 
-    public function setChainesàLaCarte(int $chaines_à_laCarte): static
+    public function setChainesàLaCarte(int $Chaines_à_laCarte): static
     {
-        $this->chaines_à_laCarte = $chaines_à_laCarte;
+        $this->Chaines_à_laCarte = $Chaines_à_laCarte;
 
         return $this;
     }
@@ -208,45 +212,18 @@ class Chambre
 
     public function getWiFiGratuit(): ?int
     {
-        return $this->wiFiGratuit;
+        return $this->WiFiGratuit;
     }
 
-    public function setWiFiGratuit(int $wiFiGratuit): static
+    public function setWifiGratuit(int $WiFiGratuit): static
     {
-        $this->wiFiGratuit = $wiFiGratuit;
+        $this->WiFiGratuit= $WiFiGratuit;
 
         return $this;
     }
 
-    /**
-     * @return Collection<int, ReservationChambre>
-     */
-    public function getReservationChambres(): Collection
-    {
-        return $this->reservationChambres;
-    }
 
-    public function addReservationChambre(ReservationChambre $reservationChambre): static
-    {
-        if (!$this->reservationChambres->contains($reservationChambre)) {
-            $this->reservationChambres->add($reservationChambre);
-            $reservationChambre->setChambre($this);
-        }
 
-        return $this;
-    }
-
-    public function removeReservationChambre(ReservationChambre $reservationChambre): static
-    {
-        if ($this->reservationChambres->removeElement($reservationChambre)) {
-            // set the owning side to null (unless already changed)
-            if ($reservationChambre->getChambre() === $this) {
-                $reservationChambre->setChambre(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function getCategorie(): ?Categorie
     {
@@ -260,17 +237,7 @@ class Chambre
         return $this;
     }
 
-    public function getLibelle(): ?string
-    {
-        return $this->libelle;
-    }
 
-    public function setLibelle(string $libelle): static
-    {
-        $this->libelle = $libelle;
-
-        return $this;
-    }
 
     public function isEtat(): ?bool
     {
@@ -284,5 +251,49 @@ class Chambre
         return $this;
     }
 
- 
+
+    public function getLibelle(): ?string
+    {
+        return $this->libelle;
+    }
+
+    public function setLibelle(string $libelle): static
+    {
+        $this->libelle = $libelle;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Reservation>
+     */
+    public function getChambre(): Collection
+    {
+        return $this->chambre;
+    }
+
+    public function addReservation(Reservation $reservation): static
+    {
+        if (!$this->chambre->contains($reservation)) {
+            $this->chambre->add($reservation);
+            $reservation->setChambre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): static
+    {
+        if ($this->chambre->removeElement($reservation)) {
+            // set the owning side to null (unless already changed)
+            if ($reservation->getChambre() === $this) {
+                $reservation->setChambre(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+
 }

@@ -15,7 +15,9 @@ class Categorie
     #[ORM\Column]
     private ?int $id = null;
 
-   
+
+ 
+
 
     #[ORM\OneToMany(mappedBy: 'categorie', targetEntity: Chambre::class)]
     private Collection $categorie;
@@ -33,7 +35,11 @@ class Categorie
         return $this->id;
     }
 
-    
+
+   
+
+   
+
 
     /**
      * @return Collection<int, Chambre>
@@ -76,4 +82,5 @@ class Categorie
 
         return $this;
     }
+
 }

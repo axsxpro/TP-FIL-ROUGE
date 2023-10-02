@@ -12,11 +12,12 @@ class ChiffreDaffairesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
        $builder
-            ->add('dateEntree', DateType::class, [
+
+            ->add('DateEntree', DateType::class, [
                 'widget' => 'single_text',
                 'label' => 'Date d\'entrée',
             ])
-            ->add('dateSortie', DateType::class, [
+            ->add('DateSortie', DateType::class, [
                 'widget' => 'single_text',
                 'label' => 'Date de sortie',
             ]);

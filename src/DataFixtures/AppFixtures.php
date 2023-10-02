@@ -8,7 +8,7 @@ use Doctrine\Persistence\ObjectManager;
 use App\Entity\Chambre;
 use App\Entity\Categorie;
 use Faker\Factory;
-use App\Entity\ReservationChambre;
+
 
 
 class AppFixtures extends Fixture
@@ -67,7 +67,7 @@ $libelle = [
         ];
         $chambres = [];
 
-        for ($j = 0; $j <= 10; $j++) {
+        for ($j = 1; $j <= 20; $j++) {
             $chambre = new Chambre();
             
             $chambre->setTarif($faker->numberBetween(100, 500));
@@ -103,7 +103,7 @@ $libelle = [
             $user->setPrenom($faker->firstName);
             $user->setEmail($faker->email);
             $user->setAdresse($faker->address);
-            $user->setDateDeNaissance($faker->dateTimeBetween('-50 years', '-18 years'));
+            $user->setDateDeNaissance($faker->dateTimeBetween('-100 years', '-18 years'));
             $user->setTelephone($faker->phoneNumber);
             $user->setPassword($faker->password);
 
@@ -112,7 +112,7 @@ $libelle = [
             $users[] = $user;
         }
 
-        for ($j = 0; $j <= 12; $j++) {
+        for ($j = 0; $j <= 5; $j++) {
             $reservation = new Reservation();
 
             $dateReservation = $faker->dateTimeBetween('-1 year', 'now');
@@ -121,6 +121,7 @@ $libelle = [
 
             $user = $faker->randomElement($users);
             $reservation->setUser($user);
+            $reservation->setChambre($chambre);
 
             $reservation->setDateReservation($dateReservation);
             $reservation->setDateEntree($dateEntrée);
@@ -128,18 +129,7 @@ $libelle = [
 
             $manager->persist($reservation);
 
-            // Associer des chambres à la réservation en utilisant l'entité pivot
-            $chambresReservees = $faker->randomElements($chambres, $faker->numberBetween(1, 5));
-
-            foreach ($chambresReservees as $chambre) {
-                $reservationChambre = new ReservationChambre();
-                $reservationChambre->setChambre($chambre);
-                $reservationChambre->setReservation($reservation);
-                $reservationChambre->setDateDeReservation($dateReservation);
-
-
-                $manager->persist($reservationChambre);
-            }
+        
         }
 
         $manager->flush();

@@ -12,7 +12,8 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+#[UniqueEntity(fields: ['email'], message: 'Cette adresse e-mail existe déjà')]
+
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -32,10 +33,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 255)]
     private ?string $prenom = null;
 
     #[ORM\Column(type: Types::TEXT)]
@@ -45,13 +46,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $telephone = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $dateDeNaissance = null;
+    private ?\DateTimeInterface $date_de_naissance = null;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Reservation::class)]
     private Collection $user;
-
-    #[ORM\Column(type: 'boolean')]
-    private $isVerified = false;
 
     public function __construct()
     {
@@ -178,12 +176,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getDateDeNaissance(): ?\DateTimeInterface
     {
-        return $this->dateDeNaissance;
+        return $this->date_de_naissance;
     }
 
-    public function setDateDeNaissance(\DateTimeInterface $dateDeNaissance): static
+    public function setDateDeNaissance(\DateTimeInterface $date_de_naissance): static
     {
-        $this->dateDeNaissance = $dateDeNaissance;
+        $this->date_de_naissance = $date_de_naissance;
 
         return $this;
     }
@@ -218,22 +216,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function isVerified(): bool
-    {
-        return $this->isVerified;
-    }
 
-    public function setIsVerified(bool $isVerified): static
-    {
-        $this->isVerified = $isVerified;
+//     public function isVerified(): bool
+//     {
+//         return $this->isVerified;
+//     }
 
-        return $this;
-    }
+//     public function setIsVerified(bool $isVerified): static
+//     {
+//         $this->isVerified = $isVerified;
 
-public function __toString(){
+//         return $this;
+//     }
 
-   return $this->email;
-}
+// public function __toString(){
+
+//    return $this->email;
+// }
 
     
+
 }

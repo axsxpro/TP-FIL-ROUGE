@@ -9,7 +9,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class LibreChambreController extends AbstractController
 {
     #[Route('/libre/chambre', name: 'app_libre_chambre')]
+
       public function index(ChambreRepository $chambreRepository): Response
+
+   
     {
 
 $chambresLibres = $chambreRepository->findEmptyRooms();

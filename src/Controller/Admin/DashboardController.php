@@ -7,7 +7,7 @@ use App\Entity\Chambre;
 use App\Entity\Reservation;
 use App\Entity\User;
 use App\Entity\Categorie;
-use App\Entity\ReservationChambre;
+
 
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -23,15 +23,8 @@ class DashboardController extends AbstractDashboardController
     {
 
 
-
-
-
-
-
-
-
-
         
+
         // return parent::index();
 
         // Option 1. You can make your dashboard redirect to some common page of your backend
@@ -63,24 +56,27 @@ public function configureCrud(): Crud
             ->renderContentMaximized()//ca c'est pour prendre tout l'espace du trvail
             ->showEntityActionsInlined();//ca c'est pour afficher supprimer et editer dans tout les crud
     }
-  
+
+
 #symfony console make:admin:crud de toutes les entity
 public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-          
+        
+        
+           yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+           yield MenuItem::linkToCrud('Reservation', 'far fa-calendar',  Reservation::class);
+           yield MenuItem::linkToCrud('Chambre', 'fa fa-bed',  Chambre::class);
+           yield MenuItem::linkToCrud('Categorie', 'fa fa-grip-vertical',  Categorie::class);
+           yield MenuItem::linkToCrud('Utilisateurs', 'far fa-user',  User::class);
 
 
-          yield MenuItem::linkToCrud('Reservation', 'far fa-calendar',  Reservation::class);
-          yield MenuItem::linkToCrud('Chambre', 'fa fa-bed',  Chambre::class);
-          yield MenuItem::linkToCrud('Categorie', 'fa fa-grip-vertical',  Categorie::class);
-          yield MenuItem::linkToCrud('details de la chambre', 'fa fa-grip-vertical',  ReservationChambre::class);
-          yield MenuItem::linkToCrud('Utilisateurs', 'far fa-user',  User::class);
 
-          //menu pour chiffre d'affaire
+        // //menu pour chiffre d'affaire
 
-          yield MenuItem::section('Statistiques');
-          yield MenuItem::linkToRoute('Chiffre d\'affaires', 'fa fa-money', 'app_chiffre_daffaires');
-            
+         yield MenuItem::section('Statistiques');
+         yield MenuItem::linkToRoute('Chiffre d\'affaires', 'fa fa-money', 'app_chiffre_daffaires');
+         yield MenuItem::linkToRoute('Chambres Occupées', 'fa fa-bed', 'chambreOcuppee');
+
+
     }
 } 

@@ -3,25 +3,30 @@
 namespace App\Form;
 
 use App\Entity\User;
-use Symfony\Component\Mime\Message;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Mime\Message;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Validator\Constraints\Email;
+
+
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Validator\Constraints\Regex;
+
+
 
 class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-    
+
          // Crée le formulaire
         $builder
 
@@ -43,7 +48,10 @@ class RegistrationFormType extends AbstractType
             ],
         ])
 
-            ->add('date_de_naissance', DateType::class, [
+            // ->add('date_de_naissance', DateType::class, [
+
+            ->add('date_de_naissance', null, [
+
                 'widget' => 'single_text',
                 'invalid_message' => 'Veuillez indiquer votre date de naissance',
                 
@@ -81,7 +89,10 @@ class RegistrationFormType extends AbstractType
                 'label' => 'En créeant un compte vous acceptez nos conditions générales de vente', // Ajoutez cette ligne pour définir un label personnalisé
             ])
 
-            ->add('plainPassword', PasswordType::class, [ // Ajoute un champ de type mot de passe nommé 'password'
+
+            // ->add('plainPassword', PasswordType::class, [ // Ajoute un champ de type mot de passe nommé 'password'=======
+            ->add('password', PasswordType::class, [ // Ajoute un champ de type mot de passe nommé 'password'
+
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],// Attribut HTML pour l'autocomplétion du champ de mot de passe
                 'constraints' => [
@@ -94,15 +105,22 @@ class RegistrationFormType extends AbstractType
                         'pattern' => '/^(?=.*[A-Z])(?=.*\d)/',
                         'message' => 'Votre mot de passe doit contenir au moins une lettre majuscule et au moins un chiffre.',
                     ]),
-                ],
-            ]); 
-        ;
+                ]
+
+            ]);
+
     }
 
+    
+    //  configure les options du formulaire : lorsque le formulaire est soumis, Symfony créera un nouvel objet User et y attribuera les données saisies dans le formulaire.
     public function configureOptions(OptionsResolver $resolver): void
     {
+        // définir les options par défaut pour ce formulaire en passant un tableau d'options à la méthode setDefaults de l'objet $resolver.
         $resolver->setDefaults([
-            'data_class' => User::class,
+
+            // Spécifie que les données du formulaire seront liées à la classe User
+            // Cette option spécifie quelle classe sera utilisée pour créer un objet à partir des données du formulaire.
+            'data_class' => User::class, 
         ]);
     }
 }
