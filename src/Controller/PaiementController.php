@@ -21,7 +21,7 @@ class PaiementController extends AbstractController
     {
         // chemin vers lequel on veut enregistrer notre fichier CSV
         // $this->getParameter('kernel.project_dir'): c'est la racine du projet qui permet d'obtenir le chemin du répertoire du projet Symfony
-        $cheminFichier = $this->getParameter('kernel.project_dir') . '/src/fichierCSV/paiement_data_'.date('d-m-y-his').'.csv';
+        $cheminFichier = $this->getParameter('kernel.project_dir') . '/src/fichierCSV/paiement_data_'.date('d-m-y-h.i.s').'.csv';
 
         // fopen() : permet d'ouvrir un fichier
         // 'w' : signifie "écriture"

@@ -32,8 +32,10 @@ a {
     text-align: center;
 
 }
+
 .mesreservations {
 
+    
     border-left: solid #E0B973 2px;
     border-bottom: solid #E0B973 3px;
     padding:50px;
@@ -45,7 +47,7 @@ a {
 .conteneur {
 
     display:flex;
-    justify-content: space-evenly;
+    justify-content: center;
     padding: 50px;
 }
 
@@ -74,3 +76,4 @@ td{
 
     padding : 50px;
 }
+
