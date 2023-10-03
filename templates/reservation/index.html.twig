@@ -26,6 +26,7 @@
 
 <div class="conteneur">
 
+
 <table>
     <thead>
         <tr>
@@ -38,9 +39,10 @@
         </tr>
     </thead>
 
-    <tbody>
-        {% for reservation in reservations %}
+{% for reservation in reservations %}
 
+    <tbody>
+    
         <tr>
             <td>{{ reservation.id }}</td>
             <td>{{ reservation.dateReservation|date('d-m-Y') }}</td>
@@ -49,6 +51,10 @@
             <td>{{ reservation.chambre.id}}</td>
             <td><a href="{{ path('app_reservation_crud_test_delete', {'id': reservation.id}) }}" class="btn btn-outline-danger"><b>Supprimer ma reservation</b></a></td>
         </tr>
+
+        {% else %}
+        
+        <h6 style="color:red"> Vous n'avez aucune(s) reservation(s) ❌</h6>
 
         {% endfor %}
 

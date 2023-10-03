@@ -229,9 +229,6 @@ class Chambre
         return $this;
     }
 
-
-
-
     public function getCategorie(): ?Categorie
     {
         return $this->categorie;

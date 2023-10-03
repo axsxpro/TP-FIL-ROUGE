@@ -22,7 +22,7 @@ class ChambreController extends AbstractController
 
         // pour ouvrir le dossier image on spécifie d'abord son chemin
         $dossierImg = "../public/image";
-
+       
         // on l'ouvre avec la fonction scandir(): scandir — Liste les fichiers et dossiers dans un dossier et l'affiche sous forme de tableau
         $contenuDossierImg = scandir($dossierImg);
 
@@ -67,6 +67,7 @@ class ChambreController extends AbstractController
             'categorie' => $categorieId,
             'etat' => $chambreLibre,
         ]);
+
 
         return $this->render('chambre/chambreDeluxe.html.twig', [
 

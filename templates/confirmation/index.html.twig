@@ -2,14 +2,37 @@
 
 {% block title %}Confirmation de Réservation{% endblock %}
 
+
+{% block stylesheets %}
+<link rel="stylesheet" href="/assets/css/confirmation.css">
+{% endblock %}
+
+
 {% block body %}
-    <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh; margin-top: -50px;">
-        <div class="text-center">
+
+
+    <div class="confirmationPage">
+        
+        <div class="text-center" id ='textConfirmation'>
+
             <h1 style="font-family: 'Arial', sans-serif; font-size: 36px; color: #333;">C’EST CONFIRMÉ !</h1>
-            <h2 style="font-family: 'Georgia', serif; font-size: 24px; color: #007BFF;">Votre réservation a bien été enregistrée <span style="font-size: 32px; color: #28A745;">✔️</span></h2>
+
+            {# {% for reservation in reservations %}  si on veut tuliser la boucle alors on affiche cette variable -> {{reservation.id}}  #}
+            <h2 style="font-family: 'Georgia', serif; font-size: 24px; color: #007BFF;">Votre réservation n ° {{id_reservation}} a bien été enregistrée <span style="font-size: 32px; color: #28A745;">✅</span></h2>
+            {# {% endfor %}  #}
+
             <p style="font-size: 18px; color: #555;">Vous recevrez prochainement le récapitulatif de votre réservation sur votre adresse e-mail.</p>
         
-            <a href="{{ path('app_pdf_generator') }}" class="btn btn-primary" style="font-size: 20px; background-color: #007BFF; border-color: #007BFF;">Télécharger le PDF</a>
+            <a href="{{ path('app_pdf_generator') }}" class="btn btn-primary" style="font-size: 20px; background-color: #007BFF; border-color: #007BFF;" target = "_blank">Télécharger votre récapitulatif</a>
+
+            <p>Nous vous remercions pour votre confiance et attendons avec impatience votre venue.</p>
+
+            <img src="/img/VCH-removebg-preview_1.png" alt="logoViceCity">
+
+            <p><a class="btn btn-warning" href="{{ path('home') }}">RETOUR A LA PAGE D'ACCUEIL</a></p>
+
         </div>
+
     </div>
+
 {% endblock %}

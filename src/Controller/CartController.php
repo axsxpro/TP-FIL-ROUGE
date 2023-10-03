@@ -70,7 +70,6 @@ class CartController extends AbstractController
             // Modification de la propriété userId de l'entité reservation, on ajoute l'id de l'user actuellement connecté
             $reservation->setUser($user);
 
-
             foreach ($panier as $id) {
 
                 $chambre = $chambreRepository->find($id);
@@ -95,7 +94,7 @@ class CartController extends AbstractController
             $session->remove("panier");
 
             // Redirigez l'utilisateur vers la page de paiement avec en parametre l'id de la chambre
-            return $this->redirectToRoute('payment_stripe', ['id' => $chambreId]);
+            return $this->redirectToRoute('app_paiement', ['id' => $chambreId]);
         }
 
         return $this->render('cart/index.html.twig', [
@@ -114,7 +113,6 @@ class CartController extends AbstractController
     #[Route('/reservation/{id}', name: 'cart_add', methods: ['GET'])]
     public function add(Chambre $chambre, SessionInterface $session): Response
     {
-
 
         //recupération de l'id par l'entité depuis la route, va afficher par exemple: 106
         $id = $chambre->getId();
@@ -137,8 +135,6 @@ class CartController extends AbstractController
 
         return $this->redirectToRoute("reservation");
     }
-
-
 
 
 
