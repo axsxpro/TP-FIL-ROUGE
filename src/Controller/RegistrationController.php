@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
+
 
 class RegistrationController extends AbstractController
 {
@@ -25,7 +25,7 @@ class RegistrationController extends AbstractController
         // Le deuxième argument '$user' indique que le formulaire sera lié à l'objet '$user', ce qui signifie que les données saisies dans le formulaire seront associées à cet user.
         $form = $this->createForm(RegistrationFormType::class, $user);
 
-        // extraire et gérer les données du formulaire à partir de la requête HTTP, les lier à l'objet $article
+        // extraire et gérer les données du formulaire à partir de la requête HTTP, les lier à l'objet $user
         $form->handleRequest($request);
 
         // Vérifie si le formulaire a été soumis et s'il est valide

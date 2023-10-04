@@ -23,8 +23,6 @@ class ReservationCrudTestController extends AbstractController
     }
 
 
-
-
     // AJOUTER UNE NOUVELLE RESERVATION
     #[Route('/new', name: 'app_reservation_crud_test_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response

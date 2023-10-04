@@ -21,12 +21,13 @@ class PaiementController extends AbstractController
     {
         // chemin vers lequel on veut enregistrer notre fichier CSV
         // $this->getParameter('kernel.project_dir'): c'est la racine du projet qui permet d'obtenir le chemin du répertoire du projet Symfony
-        $cheminFichier = $this->getParameter('kernel.project_dir') . '/src/fichierCSV/paiement_data_'.date('d-m-y-h.i.s').'.csv';
+        $cheminFichier = $this->getParameter('kernel.project_dir') . '/src/fichierCSV/paiement_data_' . date('d-m-y-h.i.s') . '.csv';
 
         // fopen() : permet d'ouvrir un fichier
         // 'w' : signifie "écriture"
         $fichier = fopen($cheminFichier, 'w');
 
+        
         // fputcsv() : Ecrire dans le fichier CSV
         // $file : 1er argument, on indique le fichier dans lequel on veut ecrire
         // $dataFormulaire[''] : variable sous forme de tableau associatif et qui contient les données du formulaire, récupère la valeur associée à la clé.  exemple : ['name']
@@ -50,7 +51,7 @@ class PaiementController extends AbstractController
 
         // Sauvegarde de l'ID de la chambre dans la session
         $session->set("id_chambre_reservee", $idChambre);
-    
+
         // redirection vers la page paiement
         return $this->redirectToRoute("paiement");
     }
@@ -60,7 +61,7 @@ class PaiementController extends AbstractController
     // Page paiement lors de la validation de la reservation et redirection vers la page confirmation
     #[Route('/paiement', name: 'paiement', methods: ['GET', 'POST'])]
     public function paiement(Request $request, UserRepository $userRepository, ReservationRepository $reservationRepository, SessionInterface $session, ChambreRepository $chambreRepository): Response
-    {   
+    {
         // recupération de l'id de la chambre réservée , va contenir l'id de la chambre (exemple : 105)
         $idChambre = $session->get("id_chambre_reservee");
 
@@ -92,7 +93,7 @@ class PaiementController extends AbstractController
 
         // stockage de la reservation dans un tableau pour affichage sur le twig
         $reservations[] = $maReservation;
-    
+
 
         // calcul du nombre de jours entre la date entrée et la date de sortie pour multiplier par le tarif et afficher le montant total sur le twig
         // recupération des valeurs pour chaque propri
@@ -101,7 +102,7 @@ class PaiementController extends AbstractController
 
         // Calculer la différence entre les deux dates
         $difference = $dateSortie->diff($dateEntree);
-    
+
         // Récupérer le nombre de jours
         $nbJours = $difference->days;
 
@@ -114,7 +115,7 @@ class PaiementController extends AbstractController
         // Sauvegarde de la reservation dans la session pour affichage dans la page confirmation
         $session->set("reservation", $reservations);
         // dd($reservations);
-        
+
 
         // condition: si le formulaire est soumis et valide
         if ($form->isSubmitted() && $form->isValid()) {
@@ -135,5 +136,4 @@ class PaiementController extends AbstractController
             'nombreJours' => $nbJours,
         ]);
     }
-
 }

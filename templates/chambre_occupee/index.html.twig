@@ -3,7 +3,7 @@
 {% block title %}Chambres Occupées{% endblock %}
 
 {% block body %}
-<h1>Liste des Chambres occupées</h1>
+<h1>L'état de l'Hotel</h1>
 
 <table class="table">
     <thead>
@@ -21,58 +21,49 @@
     </thead>
 
     <tbody>
- 
-        {# chambre : clé #}
-        {# chambreFull : tableau qui contient toute les chambres occupées. Voir dans le render ->  'ChambreFull' => $fullRoom, #}
-        {% for chambre in ChambreFull %}
-
-        {# tr = ligne d'un tableau #}
-        <tr>
-            {# td : colonne d'un tableau #}
-            <td>{{ chambre.id }}</td>
-            <td>
-                {% for reservationChambre in chambre.reservationChambres %}
-                {{ reservationChambre.id }}<br>
-                {% endfor %}
-            </td>
-            <td>{{ chambre.etat ? 'libre' : 'occupee' }}</td>
-            <td>
-                {% for user in chambre.reservationChambres %}
-                {{ user.reservation.user.nom }}<br>
-                {% endfor %}
-            </td>
-            <td>
-                {% for user in chambre.reservationChambres %}
-                {{ user.reservation.user.prenom }}<br>
-                {% endfor %}
-            </td>
-            <td>
-                {% for user in chambre.reservationChambres %}
-                {{ user.reservation.user.email }}<br>
-                {% endfor %}
-            </td>
-            <td>
-                {% for user in chambre.reservationChambres %}
-                {{ user.reservation.user.telephone }}<br>
-                {% endfor %}
-            </td>
-            <td>
-                {% for user in chambre.reservationChambres %}
-                {# une date est en interger et ne peut etre convertit en string #}
-                {# pour convertir en string on utilise la fonction |date('Y-m-d')  #}
-                {{ user.reservation.DateEntree|date('Y-m-d') }}<br>
-                {% endfor %}
-            </td>
-            <td>
-                {% for user in chambre.reservationChambres %}
-                {{ user.reservation.DateSortie|date('Y-m-d') }}<br>
-                {% endfor %}
-            </td>
-        </tr>
-        {% endfor %}
-
+    {% for chambre in ChambreFull %}
+    <tr>
+        <td>{{ chambre.id }}</td>
+        <td>
+            {% for reservation in chambre.chambre %}
+            {{ reservation.id }}<br>
+            {% endfor %}
+        </td>
+        <td>
+            {{ chambre.etat ? 'Libre' : 'Occupée' }}</td>
+        <td>
+            {% for reservation in chambre.chambre %}
+            {{ reservation.user.nom }}<br>
+            {% endfor %}
+        </td>
+        <td>
+            {% for reservation in chambre.chambre %}
+            {{ reservation.user.prenom }}<br>
+            {% endfor %}
+        </td>
+        <td>
+            {% for reservation in chambre.chambre %}
+            {{ reservation.user.email }}<br>
+            {% endfor %}
+        </td>
+        <td>
+            {% for reservation in chambre.chambre %}
+            {{ reservation.user.telephone }}<br>
+            {% endfor %}
+        </td>
+        <td>
+            {% for reservation in chambre.chambre %}
+            {{ reservation.DateEntree|date('Y-m-d') }}<br>
+            {% endfor %}
+        </td>
+        <td>
+            {% for reservation in chambre.chambre %}
+            {{ reservation.DateSortie|date('Y-m-d') }}<br>
+            {% endfor %}
+        </td>
+    </tr>
+    {% endfor %}
     </tbody>
-
 </table>
 
 {% endblock %}

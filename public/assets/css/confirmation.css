@@ -1,16 +1,14 @@
 .confirmationPage {
 
     margin-top: 50px;
-
 }
-
 
 #textConfirmation {
     
     padding: 50px;
 }
 
-p, h1, h2 {
+#pconfirmation, h1, h2 {
     margin: 50px;
 }
 

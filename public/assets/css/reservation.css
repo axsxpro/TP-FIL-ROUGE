@@ -11,9 +11,11 @@ a {
 
 .conteneur {
 
+    /* border: solid black 2px; */
     display:flex;
     justify-content: space-evenly;
     padding: 50px;
+    margin-bottom: 50px;
 }
 
 .reservationChoix {
@@ -33,6 +35,7 @@ a {
     text-align: center;
 
 }
+
 .mesreservations {
 
     border-left: solid #E0B973 2px;

@@ -30,7 +30,7 @@ class ChambreRepository extends ServiceEntityRepository
             ->where('chambre.etat = :libre') // condition where, equivaut à : where libelle = :libelle(parametre/valeur)
             ->setParameter('libre', $etat)  // Lie la valeur true au paramètre :libre('libre')
             ->getQuery(); // Obtient l'objet de requête
-            //->getScalarResult();
+        //->getScalarResult();
     }
 
 
@@ -53,16 +53,33 @@ class ChambreRepository extends ServiceEntityRepository
 
     public function findOneByRoom()
     {
-
         return $this->createQueryBuilder('c')
-            ->select('c', 'rc', 'r', 'u') // Sélectionnez les alias c, rc, r et u
-            ->leftJoin('c.reservationChambres', 'rc')
-            ->leftJoin('rc.reservation', 'r')
+            ->select('r', 'c', 'u')
+            ->leftJoin('c.chambre', 'r')
             ->leftJoin('r.user', 'u')
             ->andWhere('c.etat = :occupee')
-            ->setParameter('occupee', false) // Changer false en true pour trouver les chambres occupées
+            ->setParameter('occupee', false)
             ->getQuery()
-            ->getResult(); // Utilisez getResult() au lieu de getScalarResult()
+            ->getResult();
+    }
+
+
+    public function findcountChambre(): int
+    {
+        return $this->createQueryBuilder('c')
+            ->select('COUNT(c.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+
+
+    public function findcountReservation(): int
+    {
+        return $this->createQueryBuilder('rc')
+            ->select('COUNT(rc.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 
 
@@ -70,57 +87,21 @@ class ChambreRepository extends ServiceEntityRepository
      * @return Chambre[] Returns an array of Chambre objects
      */
 
-    public function findOneByChiffre()
-    {
-        return $this->createQueryBuilder('c')
-            ->select('SUM(c.tarif) as chiffre')
-            ->leftJoin('c.reservationChambres', 'rc')
-            ->leftJoin('rc.reservation', 'r')
-            ->where('r.DateEntree <= :dateActuelle')
-            ->andWhere('r.DateSortie >= :dateActuelle')
-            ->setParameter('dateActuelle', new \DateTime())
-            ->getQuery()
-            ->getResult();
-    }
 
-
-    public function calculateChiffreDaffaires(\DateTime $startDate, \DateTime $endDate)
+    public function calculateChiffreDaffairesByMonth(\DateTime $startDate, \DateTime $endDate): array
     {
-        $queryBuilder = $this->createQueryBuilder('c')
-            ->select('SUM(c.tarif) as chiffre')
-            ->leftJoin('c.reservationChambres', 'rc')
-            ->leftJoin('rc.reservation', 'r')
+        $query = $this->createQueryBuilder('c')
+            ->select('YEAR(r.DateEntree) AS annee, MONTH(r.DateEntree) AS mois, SUM(DATE_DIFF(r.DateSortie, r.DateEntree) * c.tarif) AS chiffre')
+            ->leftJoin('c.chambre', 'r')
             ->where('r.DateEntree <= :endDate')
             ->andWhere('r.DateSortie >= :startDate')
+            ->groupBy('annee, mois')
+            ->orderBy('annee, mois')
             ->setParameter('startDate', $startDate)
             ->setParameter('endDate', $endDate)
             ->getQuery();
-    
-        return $queryBuilder->getSingleScalarResult();
+
+        return $query->getResult();
     }
 
-    //    /**
-    //     * @return Chambre[] Returns an array of Chambre objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('c.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?Chambre
-    //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
 }

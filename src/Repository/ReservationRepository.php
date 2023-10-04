@@ -22,14 +22,14 @@ class ReservationRepository extends ServiceEntityRepository
     }
 
 
-    public function findReservationsByUser(): array
-    {
-        return $this->createQueryBuilder('r')
-            ->leftJoin('r.user', 'u') // Jointure avec la table User
-            ->select(['u.id as userId', 'r']) // Sélectionnez l'ID de l'utilisateur
-            ->getQuery()
-            ->getResult();
-    }
+    // public function findReservationsByUser(): array
+    // {
+    //     return $this->createQueryBuilder('r')
+    //         ->leftJoin('r.user', 'u') // Jointure avec la table User
+    //         ->select(['u.id as userId', 'r']) // Sélectionnez l'ID de l'utilisateur
+    //         ->getQuery()
+    //         ->getResult();
+    // }
 
     /**
      * @return Reservation[] Returns an array of Reservation objects
@@ -44,41 +44,48 @@ class ReservationRepository extends ServiceEntityRepository
     }
 
 
-    public function findChambreByReservation(Reservation $reservation)
-    {
-        return $this->createQueryBuilder('r')
-            ->select('c')
-            ->join('r.reservationChambres', 'rc')
-            ->join('rc.chambre', 'c')
-            ->where('r.id = :reservationId')
-            ->setParameter('reservationId', $reservation->getId())
-            ->getQuery()
-            ->getResult();
-    }
+    // public function findChambreByReservation(Reservation $reservation)
+    // {
+    //     return $this->createQueryBuilder('r')
+    //         ->select('c')
+    //         ->join('r.reservationChambres', 'rc')
+    //         ->join('rc.chambre', 'c')
+    //         ->where('r.id = :reservationId')
+    //         ->setParameter('reservationId', $reservation->getId())
+    //         ->getQuery()
+    //         ->getResult();
+    // }
 
 
-    //    /**
-    //     * @return Reservation[] Returns an array of Reservation objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('r')
-    //            ->andWhere('r.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('r.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
 
-    //    public function findOneBySomeField($value): ?Reservation
-    //    {
-    //        return $this->createQueryBuilder('r')
-    //            ->andWhere('r.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function findAllReservation($reservationId)
+{
+    return $this->createQueryBuilder('r')
+        ->select('r', 'u', 'c')
+        ->leftJoin('r.chambre', 'c')
+        ->leftJoin('r.user', 'u')
+        ->andWhere('c.etat = :etat')
+        ->andWhere('r.id = :reservationId') 
+        ->setParameter('etat', false)
+        ->setParameter('reservationId', $reservationId) 
+        ->getQuery()
+        ->getScalarResult();
+}
+
+
+public function findReservationWithChambre()
+{
+    return $this->createQueryBuilder('r')
+        ->select('r', 'u', 'c')
+        ->leftJoin('r.chambre', 'c')
+        ->leftJoin('r.user', 'u')
+        ->andWhere('c.etat = :etat')
+        ->setParameter('etat', false)
+        // ->andWhere('r.id = :reservationId')
+        // ->setParameter('reservationId', $reservationId)
+        ->getQuery()
+        ->getScalarResult();
+}
+
+
 }

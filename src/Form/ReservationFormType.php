@@ -18,7 +18,7 @@ class ReservationFormType extends AbstractType
                 'widget' => 'single_text',
                 'attr' => [
                     'min' => (new \DateTime())->format('Y-m-d'), // Date d'entrée minimum basée sur la date du jour, // Empêche la sélection d'une date antérieure à la date du jour
-                    // 'message' => 'La date d\'entrée doit être postérieure ou égale à la date du jour.'
+
                 ],
 
             ])

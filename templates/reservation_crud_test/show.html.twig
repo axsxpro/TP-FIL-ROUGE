@@ -12,23 +12,23 @@
                 <td>{{ reservation.id }}</td>
             </tr>
             <tr>
-                <th>DateReservation</th>
-                <td>{{ reservation.DateReservation ? reservation.DateReservation|date('Y-m-d') : '' }}</td>
+                <th>Date de reservation</th>
+                <td>{{ reservation.DateReservation ? reservation.DateReservation|date('d-m-Y') : '' }}</td>
             </tr>
             <tr>
-                <th>DateEntree</th>
-                <td>{{ reservation.DateEntree ? reservation.DateEntree|date('Y-m-d') : '' }}</td>
+                <th>Date d'entree</th>
+                <td>{{ reservation.DateEntree ? reservation.DateEntree|date('d-m-Y') : '' }}</td>
             </tr>
             <tr>
-                <th>DateSortie</th>
-                <td>{{ reservation.DateSortie ? reservation.DateSortie|date('Y-m-d') : '' }}</td>
+                <th>Date de sortie</th>
+                <td>{{ reservation.DateSortie ? reservation.DateSortie|date('d-m-Y') : '' }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_reservation_crud_test_index') }}">back to list</a>
+    {# <a href="{{ path('app_reservation_crud_test_index') }}">back to list</a> #}
 
-    <a href="{{ path('app_reservation_crud_test_edit', {'id': reservation.id}) }}">edit</a>
+    {# <a href="{{ path('app_reservation_crud_test_edit', {'id': reservation.id}) }}">edit</a> #}
 
     {{ include('reservation_crud_test/_delete_form.html.twig') }}
 {% endblock %}

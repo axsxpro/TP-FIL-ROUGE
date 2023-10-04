@@ -160,9 +160,6 @@ class ReservationController extends AbstractController
 }
 
 
-
-
-        
         // #[Route('', name: 'app_reservation_show', methods: ['GET'])]
         // public function show(Reservation $reservation): Response
     // {
