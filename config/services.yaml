@@ -1,18 +1,21 @@
-# This file is the entry point to configure your own services.
-# Files in the packages/ subdirectory configure your dependencies.
-
-# Put parameters here that don't need to change on each machine where the app is deployed
-# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
-parameters:
-
 services:
-    # default configuration for services in *this* file
+    Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface: '@session.storage.native'
+    # Symfony\Contracts\Translation\TranslatorInterface: '@translator'
+
+    App\EventSubscriber\LocaleSubscriber:
+        arguments:
+            $defaultLocale: 'fr'
+            $session: '@session'
+        tags:
+            - { name: 'kernel.event_subscriber' }
+
+    # Default configuration for services in *this* file
     _defaults:
-        autowire: true      # Automatically injects dependencies in your services.
-        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        autowire: true
+        autoconfigure: true
+        public: false
 
     # makes classes in src/ available to be used as services
-    # this creates a service per class whose id is the fully-qualified class name
     App\:
         resource: '../src/'
         exclude:
@@ -20,5 +23,9 @@ services:
             # - '../src/Entity/'
             - '../src/Kernel.php'
 
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+# Paramètres de l'application
+parameters:
+    locale: 'fr' # définition de la locale(langue) par défaut
+    app_secret: '%env(APP_SECRET)%'
+    # app_locales: ['fr', 'en'] # indiquer les locales(langues) prises en charge par l'application
+    # supported_locales: '%env(SUPPORTED_LOCALES)%'  # permet de définir les langues qui seront suportées par l'appli, voir fichier '.env'

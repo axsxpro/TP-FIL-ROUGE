@@ -2,33 +2,44 @@
 
 {% block title %}Reservation{% endblock %}
 
-{% block body %}
-    <h1>Reservation</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ reservation.id }}</td>
-            </tr>
-            <tr>
-                <th>Date de reservation</th>
-                <td>{{ reservation.DateReservation ? reservation.DateReservation|date('d-m-Y') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Date d'entree</th>
-                <td>{{ reservation.DateEntree ? reservation.DateEntree|date('d-m-Y') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Date de sortie</th>
-                <td>{{ reservation.DateSortie ? reservation.DateSortie|date('d-m-Y') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+{% block stylesheets %}
+<link rel="stylesheet" href="/assets/css/annulerReservation.css">
+{% endblock %}
+
+
+{% block body %}
+
+<div class='blocTable'>
+
+    <div class="tableAnnuler">
+
+        <h1>Reservation n° {{ reservation.id }} </h1>
+
+            <ul>
+                <li>Date de reservation:</th>
+                <li>{{ reservation.DateReservation ? reservation.DateReservation|date('d-m-Y') : '' }}</td>
+            </ul>
+
+            <ul>
+                <li>Date d'entree:</th>
+                <li>{{ reservation.DateEntree ? reservation.DateEntree|date('d-m-Y') : '' }}</td>
+            </ul>
+
+            <ul>
+                <li>Date de sortie:</th>
+                <li>{{ reservation.DateSortie ? reservation.DateSortie|date('d-m-Y') : '' }}</td>
+            </ul>
+
+    
+            {{ include('reservation_crud_test/_delete_form.html.twig') }}
+    
+    </div>
 
     {# <a href="{{ path('app_reservation_crud_test_index') }}">back to list</a> #}
 
     {# <a href="{{ path('app_reservation_crud_test_edit', {'id': reservation.id}) }}">edit</a> #}
 
-    {{ include('reservation_crud_test/_delete_form.html.twig') }}
+</div>   
+
 {% endblock %}

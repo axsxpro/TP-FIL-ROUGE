@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/reservation/crud/test')]
+#[Route('/reservations')]
 class ReservationCrudTestController extends AbstractController
 {
     #[Route('/', name: 'app_reservation_crud_test_index', methods: ['GET'])]

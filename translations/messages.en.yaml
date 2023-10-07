@@ -1,0 +1,33 @@
+menu:
+    choose_language: 'Choose Language'
+    english: 'English'
+    french: 'French'
+
+welcome:
+    title1: 'WELCOME TO'
+    title2: 'VICE CITY'
+    title3: 'HOTEL'
+    description: 'Book your stay and experience redefined luxury at the most affordable rates.'
+
+navbar:
+    connexion: 'Log in'
+    contact: 'Contact us'
+    hebergement : 'Hosting'
+    chambre1 : 'Room Double Deluxe'
+    chambre2 : 'Room Double Superior'
+    chambre3 : 'Suite Junior'
+    visite : 'Visit the hotel'
+    reservation: 'My bookings'
+    admin: 'Hello Admin'
+    user: 'Hello'
+    profil: 'Manage my profile'
+    deconnexion: 'Log out'
+
+caroussel:
+    titre1: 'Our rooms are designed to transport you to an environment made for leisure. Forget about the everyday home life and find a private paradise for yourself.'
+    titre2: 'All our room types include complimentary breakfast.'
+
+footer:
+    titre1: 'Our hotel combines timeless elegance, modern amenities, and exceptional service to create a welcoming and soothing atmosphere.'
+    copyright: '© 2023 Vice City Hotel. All rights reserved.'
+

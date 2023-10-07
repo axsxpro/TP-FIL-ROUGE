@@ -34,8 +34,8 @@ class PaiementType extends AbstractType
                     ]),
                 ],
                 'attr' => [
-                    'maxlength' => 19, // La longueur maximale dans le champs sera de 16 chiffres plus les 3 espaces
-                    'oninput' => 'addSpace(event)',
+                    'maxlength' => 19, // La longueur maximale dans le champs sera de 16 chiffres plus les 3 espaces soit 19 au total, au delas on ne pourra plus écrire dans le champs
+                    'oninput' => 'addSpace(event)', // Dans le champs numéro de carte, on va appeler une fonction dans javascript qui va permettre de faire des espacements tous les 4 chiffres saisies dans le champs 
                 ],
             ])
             ->add('date_expiration', TextType::class, [
@@ -45,15 +45,16 @@ class PaiementType extends AbstractType
                         'message' => 'La date d\'expiration doit comporter 4 chiffres']),
                 ],
                 'attr' => [
-                    'maxlength' => 5,
-                    'oninput' => 'addSlash(event)',
+                    'maxlength' => 5, // on met en longueur max 5 car on compte aussi le slash 
+                    'oninput' => 'addSlash(event)', // Dans le champs date expiration, on va appeler une fonction dans javascript qui va permettre de faire un slash tous les deux chiffres saisie dans le champs
                 ],
             ])
             ->add('CVV', TextType::class, [
                 'constraints' => [
                     new Regex([
                         'pattern' => '/^\d{3}$/', // vérifie si la chaîne est composée de 3 chiffres
-                        'message' => 'Le cryptogramme doit comporter 3 chiffres']),
+                        'message' => 'Le cryptogramme doit comporter 3 chiffres'
+                    ]),
                 ],
                 'attr' => [
                     'maxlength' => 3,
