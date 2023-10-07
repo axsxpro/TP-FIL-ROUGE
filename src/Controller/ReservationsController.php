@@ -7,11 +7,16 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\ReservationRepository;
 use Nelmio\CorsBundle\Annotation\Cors;
+use Symfony\Bundle\WebProfilerBundle\Csp\ContentSecurityPolicyHandler;
+use Symfony\Component\HttpFoundation\Request;
+
 class ReservationsController extends AbstractController
 {
     #[Route('/reservations', name: 'app_reservations') ]
-    public function index(ReservationRepository $reservationRepository): JsonResponse
+    
+    public function index(Request $request,ReservationRepository $reservationRepository): JsonResponse
     {
+
         $reservations = $reservationRepository->findAllReservations();
         // dd($reservations);
         $data = [];

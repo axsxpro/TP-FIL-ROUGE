@@ -15,7 +15,7 @@ class FullRoomController extends AbstractController
 
         // Utilisation du repository pour trouver une chambre en appelant la fonction dans le repository
         $fullRoom = $chambreRepository->findOneByRoom();
-        
+        $nbrfullRoom = count($fullRoom);
         // dd($fullRoom);
        
 
@@ -24,7 +24,8 @@ class FullRoomController extends AbstractController
         return $this->render('chambre_occupee/index.html.twig', [
             
             'ChambreFull' => $fullRoom,
-        
+            'nbrfullRoom'=>$nbrfullRoom,
+            
         ]);
     }
 }

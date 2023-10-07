@@ -3,20 +3,40 @@
 {% block title %}Chambres Occupées{% endblock %}
 
 {% block body %}
+
+<style>
+
+
+    h1 {
+    font-size: 24px;
+    color: black;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+}
+
+
+</style>
+
+
 <h1>L'état de l'Hotel</h1>
 
+<h3>Liste des Chambres occupées</h3>
+
+<p style="font-size: 20px; color: rgba(0, 0, 0, 0.738); font-weight: bold; font-family: Arial, sans-serif;">Nombre de chambres
+    occupées : {{ nbrfullRoom }} </p>
+
 <table class="table">
-    <thead>
-        <tr>
-            <th scope="col">ID chambre</th>
-            <th scope="col">ID reservation</th>
-            <th scope="col">Etat</th>
-            <th scope="col">Nom</th>
-            <th scope="col">Prenom</th>
-            <th scope="col">Email</th>
-            <th scope="col">Telephone</th>
-            <th scope="col">Date arrivée</th>
-            <th scope="col">Date depart</th>
+    <thead style="background-color:rgba(28, 96, 119, 0.585);">
+        <tr style="border: 1px solid black " ;>
+            <th scope="col" style ="color: black; background-color:#E0B973;" >Numéro de la chambre</th>
+            <th scope="col" style ="color: black; background-color:#E0B973;">Numéro de la réservation</th>
+            <th scope="col" style ="color: black; background-color:#E0B973;">Etat</th>
+            <th scope="col" style ="color: black; background-color:#E0B973;">Nom</th>
+            <th scope="col" style ="color: black; background-color:#E0B973;">Prénom</th>
+            <th scope="col" style ="color: black; background-color:#E0B973;">Email</th>
+            <th scope="col" style ="color: black; background-color:#E0B973;">Téléphone</th>
+            <th scope="col" style ="color: black; background-color:#E0B973;">Date arrivée</th>
+            <th scope="col" style ="color: black; background-color:#E0B973;">Date départ</th>
         </tr>
     </thead>
 

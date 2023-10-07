@@ -74,7 +74,7 @@ public function configureMenuItems(): iterable
         // //menu pour chiffre d'affaire
 
          yield MenuItem::section('Statistiques');
-         yield MenuItem::linkToRoute('Chiffre d\'affaires', 'fa fa-money', 'app_chiffre_daffaires');
+         yield MenuItem::linkToRoute('Chiffre d\'affaires', 'fas fa-money-bill', 'app_chiffre_daffaires');
          yield MenuItem::linkToRoute('Chambres Occupées', 'fa fa-bed', 'chambreOcuppee');
 
 

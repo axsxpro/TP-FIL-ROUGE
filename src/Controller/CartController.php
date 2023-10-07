@@ -133,7 +133,7 @@ class CartController extends AbstractController
 
         // sauvegarde du panier avec son id dans la session
         $session->set("panier", $panier);
-        // dd($panier);
+         //dd($panier);
 
         return $this->redirectToRoute("reservation");
     }
