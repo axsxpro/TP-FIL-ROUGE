@@ -11,27 +11,21 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'Cette adresse e-mail existe déjà')]
 
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+
+
+    
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+   
     private ?int $id = null;
 
-    #[ORM\Column(length: 180, unique: true)]
-    private ?string $email = null;
-
-    #[ORM\Column]
-    private array $roles = [];
-
-    /**
-     * @var string The hashed password
-     */
-    #[ORM\Column]
-    private ?string $password = null;
 
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
@@ -47,6 +41,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date_de_naissance = null;
+    #[ORM\Column(length: 180, unique: true)]
+    private ?string $email = null;
+
+    #[ORM\Column]
+    private array $roles = [];
+
+    /**
+     * @var string The hashed password
+     */
+    #[ORM\Column]
+    private ?string $password = null;
+
+    private ?string $plainPassword = null;
+
+ 
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Reservation::class)]
     private Collection $user;
@@ -95,6 +104,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return array_unique($roles);
     }
 
+
     public function setRoles(array $roles): static
     {
         $this->roles = $roles;
@@ -122,8 +132,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function eraseCredentials(): void
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+        //If you store any temporary, sensitive data on the user, clear it here
+        //$this->plainPassword = null;
     }
 
     public function getNom(): ?string
@@ -229,11 +239,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 //         return $this;
 //     }
 
-// public function __toString(){
+public function __toString(){
 
-//    return $this->email;
-// }
+   return $this->email;
+}
 
     
 
+
+    /**
+     * Get the value of plainPassword
+     */ 
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * Set the value of plainPassword
+     *
+     * @return  self
+     */ 
+    public function setPlainPassword($plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
+
+        return $this;
+    }
 }

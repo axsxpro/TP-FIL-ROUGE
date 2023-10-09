@@ -68,15 +68,16 @@ public function configureMenuItems(): iterable
            yield MenuItem::linkToCrud('Chambre', 'fa fa-bed',  Chambre::class);
            yield MenuItem::linkToCrud('Categorie', 'fa fa-grip-vertical',  Categorie::class);
            yield MenuItem::linkToCrud('Utilisateurs', 'far fa-user',  User::class);
+       
 
 
 
         // //menu pour chiffre d'affaire
 
          yield MenuItem::section('Statistiques');
-         yield MenuItem::linkToRoute('Chiffre d\'affaires', 'fas fa-money-bill', 'app_chiffre_daffaires');
          yield MenuItem::linkToRoute('Chambres Occupées', 'fa fa-bed', 'chambreOcuppee');
-
-
+         yield MenuItem::linkToRoute('Nombre de réservation', 'fa-solid fa-calendar-check',  'app_count_reservation');
+         yield MenuItem::linkToRoute('Chiffre d\'affaires', 'fas fa-money-bill', 'app_chiffre_daffaires');
+         
     }
 } 
