@@ -1,7 +1,7 @@
 menu:
     choose_language: 'Choose Language'
-    english: 'English'
-    french: 'French'
+    english: 'EN'
+    french: 'FR'
 
 welcome:
     title1: 'WELCOME TO'

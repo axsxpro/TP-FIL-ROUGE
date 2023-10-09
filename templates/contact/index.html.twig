@@ -1,13 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Page Contact{% endblock %}
+{% block title %}Contact{% endblock %}
 
 {% block body %}
     <style>
     
         /* Styles pour le corps de la page */
         body {
-            font-family: Arial, sans-serif;
             background-color: #f0f0f0;
             color: #333;
             margin: 0;
@@ -31,9 +30,8 @@
             background-color:black;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
             max-width: 400px;
-            margin: 20px auto;
-           
-            border: 5px solid #E0B973;
+            margin: 100px auto;
+            border: 7px solid #E0B973;
         }
 
         /* Styles pour les champs du formulaire */
@@ -42,7 +40,6 @@
             margin-bottom: 10px;
             color: #333;
             font-weight: bold;
-           
             color:white;
         }
 
@@ -54,7 +51,6 @@
             margin-bottom: 15px;
             border: 1px solid #ccc;
             border-radius: 5px;
-           
         }
 
 
@@ -76,17 +72,10 @@
         }
     </style>
 
-    <h1>Contact</h1>
-    <div class="div">
-        <form>
+<h1>Formulaire de Contact</h1>
 
-            <label for="email">Email :</label>
-            <input type="email" id="email" name="email" required>
-
-            <label for="message">Message :</label>
-            <textarea id="message" name="message" rows="4" required></textarea>
-
-            <button type="submit">Envoyer</button>
-        </form>
+    <div>
+        {{form(formulaire)}}
     </div>
+
 {% endblock %}

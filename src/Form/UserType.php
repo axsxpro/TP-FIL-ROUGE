@@ -30,12 +30,13 @@ class UserType extends AbstractType
             ->add('password', PasswordType::class, [
                 'label' => 'Mot de passe',
                 'mapped' => false,
+                'required' => false, // afin eviter de demander le mot de passe dans le formulaire modifier le profil, bloque la soumission du mot de passe
                 'attr' => ['autocomplete' => 'new-password'],// Attribut HTML pour l'autocomplétion du champ de mot de passe
                 'constraints' => [
                     new Length([  // Vérifie la longueur du mot de passe
                         'min' => 6,
                         'minMessage' => 'Votre mot de passe doit contenir au moins 6 caractères', //message erreur
-                        'max' => 20,
+                        'max' => 10,
                     ]),
                     new Regex([
                         'pattern' => '/^(?=.*[A-Z])(?=.*\d)/',

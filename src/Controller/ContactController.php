@@ -36,7 +36,7 @@ class ContactController extends AbstractController
             $mailer->send($email);
         }
 
-        return $this->renderform('contact/index.html.twig', [
+        return $this->render('contact/index.html.twig', [
             'controller_name' => 'ContactController',
             'formulaire' => $form
         ]);

@@ -34,16 +34,40 @@
 
         <li class="nav-item dropdown">
           <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" id="locales">
-              <img class="bl" src="/img/Vector (8).png" alt="">
-              <span class="caret"></span>
-              <span class="sr-only">{{ 'menu.choose_language'|trans }}</span>
+            <img class="bl" src="/img/Vector (8).png" alt="">
+            <span class="caret"></span>
+            <span class="sr-only">{{ 'menu.choose_language'|trans }}</span>
           </a>
-          <div class="dropdown-menu" aria-labelledby="locales">
-            <a class="dropdown-item" id='lienLangague' href="{{ path('app_traduction', {'_locale': 'en'}) }}" >{{ 'menu.english'|trans }}  <img class="bl" src="/img/england-150397_1280.png" id='GB' alt="GB"></a>
-            <a class="dropdown-item" id='lienLangague' href="{{ path('app_traduction', {'_locale': 'fr'}) }}" >{{ 'menu.french'|trans }}  <img class="bl" src="/img/drapeau_fr.png" id= 'FR' alt="FR"></a>
-          <div>
-      </li>
-      
+
+          <div class="dropdown-menu" aria-labelledby="locales" id="blocLangue">
+
+            <div class="divGB">
+
+                <div class="lienLangue">
+                  <a class="dropdown-item" id='lienLangague'
+                    href="{{ path('app_traduction', {'_locale': 'en'}) }}">{{'menu.english'|trans }}</a>
+                </div>
+
+                <div class="photoLangue">
+                  <img class="bl" src="/img/england-150397_1280.png" id='GB' alt="GB">
+                </div>
+
+            </div>
+
+            <div class="divFR">
+
+              <div class="lienLangue">
+                <a class="dropdown-item" id='lienLangague'
+                  href="{{ path('app_traduction', {'_locale': 'fr'}) }}">{{'menu.french'|trans }}</a>
+              </div>
+
+              <div class="photoLangue">
+                <img class="bl" src="/img/drapeau_fr.png" id='FR' alt="FR">
+              </div>
+
+            </div>
+
+        </li>
 
 
         {% if is_granted('ROLE_ADMIN') %}
@@ -53,9 +77,10 @@
           {% endif %}
 
 
-        {% if not app.user %}
+          {% if not app.user %}
         <li class="nav-item dropdown">
-          <a class="nav-link active " href="/login"><img class="bl" src="/img/Vector.png" alt="">{{ 'navbar.connexion'|trans }}</a>
+          <a class="nav-link active " href="/login"><img class="bl" src="/img/Vector.png" alt="">{{
+            'navbar.connexion'|trans }}</a>
         </li>
         {% else %}
         <li class="nav-item dropdown">
@@ -80,13 +105,15 @@
 
         {% if not app.user %}
         <li class="nav-item">
-          <a class="nav-link active" href="/contact"><img src="/img/Vector (3).png" alt="">{{ 'navbar.contact'|trans }}</a>
+          <a class="nav-link active" href="/contact"><img src="/img/Vector (3).png" alt="">{{ 'navbar.contact'|trans
+            }}</a>
         </li>
         {% elseif is_granted('ROLE_USER') %}
         <li class="nav-item">
           {% if 'ROLE_ADMIN' not in app.user.roles %}
-          <a class="nav-link active" href="/cart"><img class="bl" src="/img/Vector (1).png" alt="">{{ 'navbar.reservation'|trans }}</a>
-          
+          <a class="nav-link active" href="/cart"><img class="bl" src="/img/Vector (1).png" alt="">{{
+            'navbar.reservation'|trans }}</a>
+
           {% endif %}
         </li>
         {% endif %}

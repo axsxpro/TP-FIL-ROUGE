@@ -16,8 +16,6 @@ body{
     color:white;
     margin: 10px;
     width: 100%;
-    
-    
     /* margin-bottom: 40px; */
 }
 
@@ -36,7 +34,6 @@ body{
     
 }
 
-
 .bl{
     width: 16px;
     height:16px;
@@ -53,9 +50,6 @@ body{
     height: 100%;
 }
 
-
-
-
 #footer {
   /* position: fixed; */
   top: 100vh;
@@ -64,14 +58,23 @@ body{
   padding: 10px; /* Espace intérieur du footer */
 }
 
-#lienLangague {
+
+.lienLangue{
+    /* border: solid green 2px; */
+    width: 80%;
+    
+}
+
+.photoLangue{
+
+    /* border: solid purple 2px; */
+    width: 20%;
+}
+
+.divGB, .divFR{
+
+   
     display: flex;
-}
+    justify-content: space-between;
 
-#lienLangague #GB {
-    margin-left: 75px; /* espace entre le texte et l'image pour choix des langues */
-}
-
-#lienLangague #FR {
-    margin-left: 70px; /* espace entre le texte et l'image pour choix des langues   */
-}
+} 
