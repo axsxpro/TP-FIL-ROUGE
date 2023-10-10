@@ -35,15 +35,15 @@ class TraductionController extends AbstractController
         $request->setLocale($_locale);
 
         
-        // Récupérer le referer (c'est-à-dire la page d'où l'on vient) ou utiliser une URL par défaut si elle n'est pas disponible
-        // $referer = $request->headers->get('referer') ?? $this->generateUrl('home');
+        // Récupérer le referer (c'est-à-dire la page où l'on est) ou utiliser une URL par défaut si elle n'est pas disponible
+        $referer = $request->headers->get('referer') ?? $this->generateUrl('home');
 
         // Rediriger vers le référent ou une autre page
-        // return $this->redirect($referer);
+        return $this->redirect($referer);
 
 
         // redirection vers la page d'accueil avec affichage dans l'url le paramètre '_locale' avec la valeur provenant de la variable '$_locale'
-        return $this->redirectToRoute('home', ['_locale' => $_locale]);
+        // return $this->redirectToRoute('home', ['_locale' => $_locale]);
 
     }
 
