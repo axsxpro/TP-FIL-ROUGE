@@ -3,3 +3,15 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+kernel:
+    resource: App\Kernel
+    type: attribute
+
+app_translation:
+    path: /translation/{_locale}
+    controller: 'App\Controller\TranslationController::changeLocale'
+    # requirements:
+    #     _locale: '%supported_locales%'  # récupération du supported_locales dans le fichier services.yaml
+
+    

@@ -2,8 +2,21 @@
 
 {% block title %}Home VICE CITY{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('assets/css/card.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/css/room.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/css/histoireVCH.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/css/localisationVCH.css')}}">
+    
+{% endblock %}
+
+
 {% block body %}
 
-<h1> Hello VICE CITY HOTEL!</h1>
+
+{% include ('home/card.html.twig') %}
+{% include ('home/room.html.twig')%}
+
 
 {% endblock %}
