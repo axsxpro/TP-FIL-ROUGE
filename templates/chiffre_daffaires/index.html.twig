@@ -17,7 +17,7 @@
     text-align: center;
   }
 
-  p {
+  /* p {
 
     font-size: 35px;
     color: #505050;
@@ -26,7 +26,7 @@
     box-shadow: #E0B973;
     margin: 25px 0;
     border-radius: 4px;
-  }
+  } */
 
 
   body {
@@ -132,7 +132,7 @@
     transform: translate(-50%, 0);
   }
 
-  .btn {
+ #MAF {
     background-color: #E0B973;
     border-color: #111;
     color: #111;
@@ -141,7 +141,7 @@
 
   }
 
-  .btn:hover {
+ #MAF:hover {
     background-color: #ee901dfa;
   }
 
@@ -158,7 +158,7 @@
   <form method="POST" class="Post">
     {{ form_start(form) }}
     {{ form_widget(form) }}
-    <button type="submit" class="btn btn-primary">Valider</button>
+    <button type="submit" class="btn btn-primary" id="MAF">Valider</button>
     {{ form_end(form) }}
   </form>
 
@@ -180,6 +180,7 @@
   document.addEventListener('DOMContentLoaded', function () {
     var chiffreDaffaireForMonths = {{ chiffreDaffaireForMonths | json_encode | raw
   }};
+  
   //recuperer lannee et le mois les mettre dans une variable
   var labels = chiffreDaffaireForMonths.map(function (data) {
     return data.annee + '-' + data.mois;

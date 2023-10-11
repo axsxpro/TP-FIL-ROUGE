@@ -19,7 +19,7 @@
     justify-content: space-between;
     /* background-color: red; */
     margin-right: 2%;
- } 
+} 
 
 
 .nav-linki.active img.bl {
@@ -45,8 +45,8 @@
 }
 
 #footer {
-  /* top: 100vh; */
-  top: 30vh;
+  top: 100vh;
+  /* top: 30vh; */
   width: 100%;
   color: #fff; 
   padding: 10px; 
