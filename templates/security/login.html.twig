@@ -99,16 +99,15 @@
     <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
-    {% if app.user %}
+   {#  {% if app.user %}
     <div class="mb-3">
         Bonjour, {{ app.user.userIdentifier }}! <a href="{{ path('app_logout') }}">Deconnexion</a>
     </div>
-    {% endif %}
+    {% endif %} #}
 
     <div class="blocFormulaireInscription">
 
         <div class='formulaire_Inscription'>
-
 
             
             <div class="blocInscriptionConnexion">

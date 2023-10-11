@@ -3,7 +3,13 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Reservation;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+
 
 class ReservationCrudController extends AbstractCrudController
 {
@@ -11,15 +17,45 @@ class ReservationCrudController extends AbstractCrudController
     {
         return Reservation::class;
     }
+public function configureFields(string $pageName): iterable
+{
+    $currentDate = (new \DateTime())->format('Y-m-d');
 
-    /*
-    public function configureFields(string $pageName): iterable
-    {
-        return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
-        ];
-    }
-    */
+    return [
+        IdField::new('id')->hideOnForm(),
+        Field::new('DateReservation')
+            ->setFormType(DateType::class)
+            ->setFormTypeOptions([
+                'widget' => 'single_text',
+                'html5' => true,
+                'attr' => [
+                    'min' => $currentDate,
+                ],
+            ])
+            ->addCssClass('datepicker'),
+        Field::new('DateEntree')
+            ->setFormType(DateType::class)
+            ->setFormTypeOptions([
+                'widget' => 'single_text',
+                'html5' => true,
+                'attr' => [
+                    'min' => $currentDate,
+                ],
+            ])
+            ->addCssClass('datepicker'),
+        Field::new('DateSortie')
+            ->setFormType(DateType::class)
+            ->setFormTypeOptions([
+                'widget' => 'single_text',
+                'html5' => true,
+                'attr' => [
+                    'min' => $currentDate,
+                ],
+            ])
+            ->addCssClass('datepicker'),
+        AssociationField::new('user'),
+        AssociationField::new('chambre'),
+    ];
+}
+
 }

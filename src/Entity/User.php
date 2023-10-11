@@ -32,6 +32,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+    private ?string $plainPassword = null;
+
 
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
@@ -212,6 +214,34 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $user->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+
+    public function __toString()
+    {
+
+        return $this->email;
+    }
+
+
+    /**
+     * Get the value of plainPassword
+     */ 
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * Set the value of plainPassword
+     *
+     * @return  self
+     */ 
+    public function setPlainPassword($plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
 
         return $this;
     }

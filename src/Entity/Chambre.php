@@ -26,13 +26,13 @@ class Chambre
     private ?int $vueSurMer = null;
 
     #[ORM\Column]
-    private ?int $Chaine_à_laCarte = null;
+    private ?int $Chaine_a_laCarte = null;
 
     #[ORM\Column]
     private ?int $climatisation = null;
 
     #[ORM\Column]
-    private ?int $television_à_ecranPlat = null;
+    private ?int $television_a_ecranPlat = null;
 
     #[ORM\Column]
     private ?int $telephone = null;
@@ -121,14 +121,14 @@ class Chambre
         return $this;
     }
 
-    public function getChaineàLaCarte(): ?int
+    public function getChaineaLaCarte(): ?int
     {
-        return $this->Chaine_à_laCarte;
+        return $this->Chaine_a_laCarte;
     }
 
-    public function setChaineàLaCarte(int $Chaine_à_laCarte): static
+    public function setChaineaLaCarte(int $Chaine_a_laCarte): static
     {
-        $this->Chaine_à_laCarte = $Chaine_à_laCarte;
+        $this->Chaine_a_laCarte = $Chaine_a_laCarte;
 
         return $this;
     }
@@ -145,14 +145,14 @@ class Chambre
         return $this;
     }
 
-    public function getTelevisionàEcranPlat(): ?int
+    public function getTelevisionaEcranPlat(): ?int
     {
-        return $this->television_à_ecranPlat;
+        return $this->television_a_ecranPlat;
     }
 
-    public function setTelevisionàEcranPlat(int $television_à_ecranPlat): static
+    public function setTelevisionaEcranPlat(int $television_a_ecranPlat): static
     {
-        $this->television_à_ecranPlat = $television_à_ecranPlat;
+        $this->television_a_ecranPlat = $television_a_ecranPlat;
 
         return $this;
     }
@@ -295,6 +295,10 @@ class Chambre
         return $this;
     }
 
+    public function __toString()
+    {
 
-
+        return $this->libelle;
+    }
+    
 }

@@ -33,9 +33,6 @@ class Categorie
         return $this->id;
     }
 
-   
-
-   
 
     /**
      * @return Collection<int, Chambre>
@@ -78,4 +75,11 @@ class Categorie
 
         return $this;
     }
+
+
+    public function __toString(){
+
+        return $this->libelle;
+    }
+    
 }

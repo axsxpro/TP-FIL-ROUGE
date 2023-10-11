@@ -1,6 +1,16 @@
-{% block title %}{% endblock %}
 
-{% block body %}
+{# <!-- Spinner Start -->
+
+<div id="spinner" class="spinner-overlay">
+  <div class="spinner">
+    <div class="spinner-grow text-primary" role="status">
+      <span class="sr-only">Chargement en cours...</span>
+    </div>
+  </div>
+</div>
+
+<!-- Spinner End --> #}
+
 
 <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
   <div class="container-fluid">
@@ -43,14 +53,14 @@
 
             <div class="divGB">
 
-                <div class="lienLangue">
-                  <a class="dropdown-item" id='lienLangague'
-                    href="{{ path('app_traduction', {'_locale': 'en'}) }}">{{'menu.english'|trans }}</a>
-                </div>
+              <div class="lienLangue">
+                <a class="dropdown-item" id='lienLangague'
+                  href="{{ path('app_traduction', {'_locale': 'en'}) }}">{{'menu.english'|trans }}</a>
+              </div>
 
-                <div class="photoLangue">
-                  <img class="bl" src="/img/england-150397_1280.png" id='GB' alt="GB">
-                </div>
+              <div class="photoLangue">
+                <img class="bl" src="/img/england-150397_1280.png" id='GB' alt="GB">
+              </div>
 
             </div>
 
@@ -124,4 +134,14 @@
 </nav>
 
 
-{% endblock %}
+{# //   // Spinner
+//   document.addEventListener("DOMContentLoaded", function () {
+//     var spinner = document.getElementById("spinner");
+//     setTimeout(function () {
+//       if (spinner) {
+//         spinner.style.display = "none";
+//       }
+//     }, 000); // Masquez le spinner après 2 seconde
+//   }); 
+/ #}
+

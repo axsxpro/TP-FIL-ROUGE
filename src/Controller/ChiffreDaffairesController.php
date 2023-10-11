@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Controller;
-
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\ChiffreDaffairesType;
 use App\Repository\ChambreRepository;
@@ -21,16 +20,17 @@ class ChiffreDaffairesController extends AbstractController
         // Gérez la soumission du formulaire
         $form->handleRequest($request);
 
-    
-        $chiffreDaffaireForMonths = null;
+       
+         $chiffreDaffaireForMonths = null;
 
-
+      
         if ($form->isSubmitted() && $form->isValid()) {
             //récupérées les dates à partir du formulaire
             $startDate = $form->get('DateEntree')->getData();
             $endDate = $form->get('DateSortie')->getData();
 
-    
+         
+       
             $chiffreDaffaireForMonths = $chambreRepository->calculateChiffreDaffairesByMonth($startDate, $endDate);   
 
             //dd($chiffreDaffaireForMonths);
@@ -39,9 +39,9 @@ class ChiffreDaffairesController extends AbstractController
         
         return $this->render('chiffre_daffaires/index.html.twig', [
             'form' => $form->createView(),
-        
-            'chiffreDaffaireForMonths' => $chiffreDaffaireForMonths,
-        ]);
+           
+            'chiffreDaffaireForMonths' => $chiffreDaffaireForMonths,  
+              ]);
     }
 
 }

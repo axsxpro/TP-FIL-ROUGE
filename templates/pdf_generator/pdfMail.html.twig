@@ -4,27 +4,28 @@
 {% block stylesheets %}
 
 <style>
-    * {
-        list-style: none;
-        font-family: 'Montserrat', sans-serif;
-        font-size: 12px;
-    }
+* {
+    list-style: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+}
 
 
-    h3 {
+h3 {
 
-        margin-top: 50px;
-        margin-bottom: 40px;
-    }
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
 
-    .titre {
+.titre {
 
-        display:flex;
-        text-align: center;
-        color: #E0B973;
-        border-bottom: solid #E0B973 2px;
-        margin-bottom: 50px;
-    }
+display:flex;
+text-align: center;
+color: #E0B973;
+border-bottom: solid #E0B973 2px;
+margin-bottom: 50px;
+
+}
 
 </style>
 {% endblock %}
@@ -69,14 +70,14 @@
     </p>
 
     <h3><U>Montant total du séjour : </U></h3>
-    <p><b>Montant total de la réservation:</b> {{montantTotal}} €</p>
+    <p><b>Montant total de la réservation:</b> {{nombreJours * reservation.chambre.tarif}} €</p>
     <p><b>Moyen de paiement :</b> Carte bancaire</p>
-    <br>
 
+    <br>
+    <br>
 
     <p>Cordialement</p>
     <h4>Vice City Hotel</h4>
-
     {% endfor %}
 
 </div>

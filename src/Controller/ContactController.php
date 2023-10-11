@@ -29,11 +29,17 @@ class ContactController extends AbstractController
 
             $email = (new Email())
             ->from($address)
-            ->to('admin@admin.com')
+            ->to('no_reply_app@outlook.com')
             ->subject('Demande de contact')
             ->text($content);
 
             $mailer->send($email);
+
+             // Message flash pour indiquer que le message a bien été envoyé
+            $this->addFlash('success', 'Votre message a bien été envoyé.');
+
+            // à chaque soumission on récréer le formulaire pour effacer les données
+            $form = $this->createForm(ContactType::class);
         }
 
         return $this->render('contact/index.html.twig', [

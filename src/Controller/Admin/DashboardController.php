@@ -3,6 +3,7 @@
 # composer require easycorp/easyadmin-bundle
 # symfony console make:admin:dashboard
 namespace App\Controller\Admin;
+
 use App\Entity\Chambre;
 use App\Entity\Reservation;
 use App\Entity\User;
@@ -22,8 +23,6 @@ class DashboardController extends AbstractDashboardController
     public function index(): Response
     {
 
-
-        
 
         // return parent::index();
 
@@ -47,36 +46,36 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-        ->renderContentMaximized()   
+            ->renderContentMaximized()
             ->setTitle('TP FIL ROUGE');
     }
-public function configureCrud(): Crud
+    public function configureCrud(): Crud
     {
         return Crud::new()
-            ->renderContentMaximized()//ca c'est pour prendre tout l'espace du trvail
-            ->showEntityActionsInlined();//ca c'est pour afficher supprimer et editer dans tout les crud
+            ->renderContentMaximized() //ca c'est pour prendre tout l'espace du trvail
+            ->showEntityActionsInlined(); //ca c'est pour afficher supprimer et editer dans tout les crud
     }
 
 
-#symfony console make:admin:crud de toutes les entity
-public function configureMenuItems(): iterable
+    #symfony console make:admin:crud de toutes les entity
+    public function configureMenuItems(): iterable
     {
-        
-        
-           yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-           yield MenuItem::linkToCrud('Reservation', 'far fa-calendar',  Reservation::class);
-           yield MenuItem::linkToCrud('Chambre', 'fa fa-bed',  Chambre::class);
-           yield MenuItem::linkToCrud('Categorie', 'fa fa-grip-vertical',  Categorie::class);
-           yield MenuItem::linkToCrud('Utilisateurs', 'far fa-user',  User::class);
+
+
+        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+        yield MenuItem::linkToCrud('Reservation', 'far fa-calendar',  Reservation::class);
+        yield MenuItem::linkToCrud('Chambre', 'fa fa-bed',  Chambre::class);
+        yield MenuItem::linkToCrud('Categorie', 'fa fa-grip-vertical',  Categorie::class);
+        yield MenuItem::linkToCrud('Utilisateurs', 'far fa-user',  User::class);
+
 
 
 
         // //menu pour chiffre d'affaire
 
-         yield MenuItem::section('Statistiques');
-         yield MenuItem::linkToRoute('Chiffre d\'affaires', 'fa fa-money', 'app_chiffre_daffaires');
-         yield MenuItem::linkToRoute('Chambres Occupées', 'fa fa-bed', 'chambreOcuppee');
-
-
+        yield MenuItem::section('Statistiques');
+        yield MenuItem::linkToRoute('Chambres Occupées', 'fa fa-bed', 'chambreOcuppee');
+        // yield MenuItem::linkToRoute('Nombre de réservation', 'fa-solid fa-calendar-check',  'app_count_reservation');
+        yield MenuItem::linkToRoute('Chiffre d\'affaires', 'fas fa-money-bill', 'app_chiffre_daffaires');
     }
-} 
+}

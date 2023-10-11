@@ -42,7 +42,7 @@ class CartController extends AbstractController
             ];
         }
 
-
+    
         // CREATION FOMULAIRE RESERVATION
         // Création d'une nouvelle reservation: cad on créer un objet à partir de la class Reservation qui est une entité
         $reservation = new Reservation();
@@ -95,6 +95,7 @@ class CartController extends AbstractController
 
             // Redirigez l'utilisateur vers la page de paiement avec en parametre l'id de la chambre
             return $this->redirectToRoute('app_paiement', ['id' => $chambreId]);
+            
         }
 
         return $this->render('cart/index.html.twig', [

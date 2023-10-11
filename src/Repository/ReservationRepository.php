@@ -5,7 +5,7 @@ namespace App\Repository;
 use App\Entity\Reservation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-
+use DateTime;
 /**
  * @extends ServiceEntityRepository<Reservation>
  *
@@ -22,43 +22,62 @@ class ReservationRepository extends ServiceEntityRepository
     }
 
 
-    // public function findReservationsByUser(): array
-    // {
-    //     return $this->createQueryBuilder('r')
-    //         ->leftJoin('r.user', 'u') // Jointure avec la table User
-    //         ->select(['u.id as userId', 'r']) // Sélectionnez l'ID de l'utilisateur
-    //         ->getQuery()
-    //         ->getResult();
-    // }
+//     public function findReservationsByUser(): array
+// {
+//     return $this->createQueryBuilder('r')
+//         ->leftJoin('r.user', 'u') // Jointure avec la table User
+//         ->select(['u.id as userId', 'r']) // Sélectionnez l'ID de l'utilisateur
+//         ->getQuery()
+//         ->getResult();
+// }
 
-    /**
-     * @return Reservation[] Returns an array of Reservation objects
-     */
+   /**
+    * @return Reservation[] Returns an array of Reservation objects
+    */
 
-    public function findcountReservation(): int
-    {
-        return $this->createQueryBuilder('rc')
-            ->select('COUNT(rc.id)')
-            ->getQuery()
-            ->getSingleScalarResult();
-    }
-
-
-    // public function findChambreByReservation(Reservation $reservation)
-    // {
-    //     return $this->createQueryBuilder('r')
-    //         ->select('c')
-    //         ->join('r.reservationChambres', 'rc')
-    //         ->join('rc.chambre', 'c')
-    //         ->where('r.id = :reservationId')
-    //         ->setParameter('reservationId', $reservation->getId())
-    //         ->getQuery()
-    //         ->getResult();
-    // }
+public function findcountReservation(): int
+{
+    return $this->createQueryBuilder('rc')
+        ->select('COUNT(rc.id)') 
+        ->getQuery()
+        ->getSingleScalarResult(); 
+}
 
 
+// public function findChambreByReservation(Reservation $reservation)
+//     {
+//         return $this->createQueryBuilder('r')
+//             ->select('c')
+//             ->join('r.reservationChambres', 'rc')
+//             ->join('rc.chambre', 'c')
+//             ->where('r.id = :reservationId')
+//             ->setParameter('reservationId', $reservation->getId())
+//             ->getQuery()
+//             ->getResult();
+//     }
+    
+//  public function calculateChiffreDaffairesByMonth()
+// {
+//     $sql = '
+//         SELECT
+//             c.id,
+//             c.nom,
+//             c.description,
+//             DATE_FORMAT(rc.date_reservation, "%d-%m-%Y") AS formatted_date
+//         FROM
+//             chambre c
+//         JOIN
+//             reservation_chambre rc ON c.id = rc.chambre_id
+//         WHERE
+//             rc.reservation_id = :reservationId
+//     ';
 
-    public function findAllReservation($reservationId)
+    
+
+    
+// }
+
+public function findAllReservation($reservationId)
 {
     return $this->createQueryBuilder('r')
         ->select('r', 'u', 'c')
@@ -87,5 +106,27 @@ public function findReservationWithChambre()
         ->getScalarResult();
 }
 
+public function findAllReservations()
+    {
+        return $this->createQueryBuilder('r')
+            ->getQuery()
+            ->getResult();
+    }
 
 }
+
+
+
+
+//afficher les reservations futures
+    //   public function findcountReservation(): int
+// {
+//     $count = $this->createQueryBuilder('rc')
+//         ->select('COUNT(rc.id)') 
+//         ->andWhere('rc.dateReservation >= :now')
+//         ->setParameter('now', new DateTime())
+//         ->getQuery()
+//         ->getSingleScalarResult();
+
+//     return $count;
+// }

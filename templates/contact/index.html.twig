@@ -74,6 +74,13 @@
 
 <h1>Formulaire de Contact</h1>
 
+
+{% for flash_message in app.flashes('success') %}
+    <div class="alert alert-success">
+        {{ flash_message }}
+    </div>
+{% endfor %}
+
     <div>
         {{form(formulaire)}}
     </div>

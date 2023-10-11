@@ -27,7 +27,6 @@ $libelle = [
 ];
 
 
-        
         $categories = [];
 
         for ($i = 0; $i < count($libelle); $i++) {
@@ -75,9 +74,9 @@ $libelle = [
             $chambre->setLibelle($faker->randomElement($libelle));
             $chambre->setSuperficie($faker->numberBetween(16, 50) . ' m²');
             $chambre->setVueSurMer($faker->boolean);
-            $chambre->setChaineàLaCarte($faker->boolean);
+            $chambre->setChaineaLaCarte($faker->boolean);
             $chambre->setClimatisation($faker->boolean);
-            $chambre->setTelevisionàEcranPlat($faker->boolean);
+            $chambre->setTelevisionaEcranPlat($faker->boolean);
             $chambre->setTelephone($faker->boolean);
             $chambre->setChainesSatellite($faker->boolean);
             $chambre->setChainesDuCable($faker->boolean);

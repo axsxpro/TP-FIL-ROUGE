@@ -13,7 +13,7 @@
 <div class="reservationChoix">
 
     <div class="mareservation">
-        <h2><a href="{{ path('reservation') }}">Ma reservation</a></h2>
+        <h2><a href="{{ path('reservation') }}">Votre selection</a></h2>
     </div>
 
     <div class="mesreservations">
@@ -121,8 +121,8 @@
         </div>
 
         <div class="blocButton">
-            <button type="submit" class="btn btn-outline-success"><b>Confirmer ma reservation</b></button>
-            <a href="{{ path('reservation_delete', {'id': infoschambre.chambre.id}) }}" class="btn btn-outline-danger"><b>Vider ma reservation</b></a>
+            <button type="submit" class="btn btn-outline-success"><b>Confirmer votre selection</b></button>
+            <a href="{{ path('reservation_delete', {'id': infoschambre.chambre.id}) }}" class="btn btn-outline-danger"><b>Vider ma selection</b></a>
         </div>
 
         {{form_end(form)}}
@@ -137,7 +137,6 @@
 
 </div>
 
-{# {{dump()}} #}
 
 <script src="{{asset('assets/js/affichageReservation.js')}}"></script>
 

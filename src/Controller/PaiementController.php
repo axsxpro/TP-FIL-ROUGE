@@ -11,6 +11,9 @@ use App\Repository\ReservationRepository;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
+use Dompdf\Dompdf;
 
 class PaiementController extends AbstractController
 {
@@ -27,7 +30,7 @@ class PaiementController extends AbstractController
         // 'w' : signifie "écriture"
         $fichier = fopen($cheminFichier, 'w');
 
-        
+
         // fputcsv() : Ecrire dans le fichier CSV
         // $file : 1er argument, on indique le fichier dans lequel on veut ecrire
         // $dataFormulaire[''] : variable sous forme de tableau associatif et qui contient les données du formulaire, récupère la valeur associée à la clé.  exemple : ['name']
@@ -40,6 +43,36 @@ class PaiementController extends AbstractController
 
         // Fermez le fichier
         fclose($fichier);
+    }
+
+    // fcontion confirmation reservation et envoi pdf recapitulatif par email
+    private function envoiEmailConfirmation(MailerInterface $mailer, Dompdf $dompdf, $userEmail)
+    {
+
+
+        // Utilisation de Twig pour générer le contenu de l'e-mail
+        $contenuEmail = $this->renderView('pdf_generator/emailConfirmation.html.twig');
+
+        // Attachement du PDF à l'e-mail
+        $email = (new Email())
+            ->from('no_reply_app@outlook.com') // adresse du mail DSN
+            ->to($userEmail) // adresse du destinataire
+            ->subject('Confirmation de réservation') // objet de l'e-mail
+            ->html($contenuEmail) // on va intégrer dans le mail son contenu, on récupérere le contenu grace au twig 
+            ->attach($dompdf->output(), null, 'application/pdf'); //insérer la pièce jointe
+
+        // Envoi de l'e-mail
+        $mailer->send($email);
+    }
+
+    // fonction pour intégrer la photo dans le pdf
+    private function imageToBase64($path)
+    {
+        $path = $path;
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $img = file_get_contents($path);
+        $base64 = 'data:image/' . $type . ';base64,' . base64_encode($img);
+        return $base64;
     }
 
 
@@ -60,7 +93,7 @@ class PaiementController extends AbstractController
 
     // Page paiement lors de la validation de la reservation et redirection vers la page confirmation
     #[Route('/paiement', name: 'paiement', methods: ['GET', 'POST'])]
-    public function paiement(Request $request, UserRepository $userRepository, ReservationRepository $reservationRepository, SessionInterface $session, ChambreRepository $chambreRepository): Response
+    public function paiement(Request $request, UserRepository $userRepository, ReservationRepository $reservationRepository, SessionInterface $session, ChambreRepository $chambreRepository, MailerInterface $mailer): Response
     {
         // recupération de l'id de la chambre réservée , va contenir l'id de la chambre (exemple : 105)
         $idChambre = $session->get("id_chambre_reservee");
@@ -116,15 +149,52 @@ class PaiementController extends AbstractController
         $session->set("reservation", $reservations);
         // dd($reservations);
 
-
         // condition: si le formulaire est soumis et valide
         if ($form->isSubmitted() && $form->isValid()) {
+
+
+            // Sauvegarde de la reservation dans la session pour affichage dans la page confirmation
+            $session->set("reservation", $reservations);
+            // dd($reservations);
 
             // // alors j'enregistre les données du formulaire dans un fichier au format CSV
             // // saveToCSVfile: est la fonction qui permet l'action d'enregistrement au format CSV
             // // $form->getData: est la récupération des données
             $dataForm = $form->getData();
             $this->saveToCSVfile($dataForm);
+
+
+            // creation du pdf grace au twig 
+            $contenuPDF =  $this->renderView('pdf_generator/pdfMail.html.twig', [
+
+                'reservations' => $reservations,
+                'imageSrc'  => $this->imageToBase64($this->getParameter('kernel.project_dir') . '/public/img/VCH-removebg-preview_1.png'),
+                'nombreJours' => $nbJours,
+
+            ]);
+
+            // Créer une instance de Dompdf (créer un objet PDF)
+            $dompdf = new Dompdf();
+
+            // Charger le HTML (le contenu dans le twig) dans Dompdf, on récupère la variable $html
+            $dompdf->loadHtml($contenuPDF);
+
+            // Rendu du PDF (génération du PDF)
+            $dompdf->render();
+
+
+            // recupération de l'utilisateur connecté
+            $user = $this->getUser();
+
+            // rechercher les infos de l'utilisateur connecté dans le repository
+            $utilisateur = $userRepository->find($user);
+
+            // recuperation de l'email de l'utilisateur 
+            $userEmail = $utilisateur->getEmail();
+
+
+            // Envoi de l'e-mail avec la pièce jointe PDF grace à l'appel de la fonction envoiEmailConfirmation()
+            $this->envoiEmailConfirmation($mailer, $dompdf, $userEmail);
 
             return $this->redirectToRoute('app_confirmation');
         }

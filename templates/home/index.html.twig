@@ -2,10 +2,6 @@
 
 {% block title %}Home VICE CITY{% endblock %}
 
-
-
-{% block body %}
-
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('assets/css/card.css')}}">
@@ -16,10 +12,11 @@
 {% endblock %}
 
 
+{% block body %}
+
+
 {% include ('home/card.html.twig') %}
 {% include ('home/room.html.twig')%}
-
-
 
 
 {% endblock %}
