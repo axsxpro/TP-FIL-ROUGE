@@ -1,12 +1,10 @@
 <?php
 
-# Controller/GoogleController
 namespace App\Controller;
 
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class GoogleController extends AbstractController
@@ -20,7 +18,7 @@ class GoogleController extends AbstractController
     }
 
     #[Route('/connect/google/check', name: 'connect_google_check')]
-    public function connectCheckAction(Request $request)
+    public function connectCheckAction()
     {
 
         if (!$this->getUser()) {
